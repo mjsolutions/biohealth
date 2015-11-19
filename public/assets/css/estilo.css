@@ -36,6 +36,7 @@ body{
 
 hr{
 	border: 1px solid black;
+	margin-top: 10px;
 }
 
 .control-label.pull-text-left{
@@ -61,6 +62,10 @@ hr{
 
 .ml15{
 	margin-left: 15px;
+}
+
+.mt-40{
+	margin-top: -40px;
 }
 
 .mb100{
@@ -114,6 +119,10 @@ hr{
 
 .smallEmployee{
 	font-size: 12px;    	
+}
+
+.buttonAdd{
+	width: 100%;
 }
 
 textarea{

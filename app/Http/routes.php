@@ -12,7 +12,26 @@
 */
 
 Route::get('/', function () {
-    return view("welcome");
+    return view("login");
 });
 
 Route::get('login','LoginController@index');
+
+Route::get('inicio','HomeController@index');
+
+Route::get('empresas','EnterprisesController@index');
+Route::get('empresas/agregar','EnterprisesController@showAddForm');
+
+
+Route::get('sucursales','BranchesController@index');
+Route::get('sucursales/agregar','BranchesController@showAddForm');
+
+
+Route::get('departamentos','DepartmentsController@index');
+Route::get('departamentos/agregar','DepartmentsController@showAddForm');
+
+
+Route::get('horarios','SchedulesController@index');
+Route::get('empleados','EmployeesController@index');
+Route::get('reportes','ReportsController@index');
+
