@@ -15,4 +15,10 @@ class SchedulesController extends Controller
     	$data["showButtonAdd"] = 1;
     	return view("pages/listSchedules", $data);
     }
+
+    public function showAddForm(){    
+    	$data["titleSection"] = "Agregar un Horario";
+   		$data["section"] = "horarios";	
+    	return view("pages/formSchedule", $data);
+    }
 }

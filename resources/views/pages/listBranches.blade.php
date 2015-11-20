@@ -41,7 +41,7 @@
 										<label class="col-sm-4 col-md-4 col-lg-4 redIdentifier">Teléfono:</label>
 									</div>		
 
-									<div class="row">
+									<div class="row rowHover">
 										<span class="col-sm-4 col-md-4 col-lg-4 ">Sucursal Morelia 1</span>							
 										<span class="col-sm-4 col-md-4 col-lg-4">MegaSalud S.A. de C.V.</span>
 										<span class="col-sm-2 col-md-2 col-lg-2">(444) 421 4567</span>
@@ -49,7 +49,7 @@
 										<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarSucursal" href="">Borrar</a></span>
 									</div>
 
-									<div class="row">
+									<div class="row rowHover">
 										<span class="col-sm-4 col-md-4 col-lg-4 ">Sucursal Morelia 2</span>							
 										<span class="col-sm-4 col-md-4 col-lg-4">MegaSalud S.A. de C.V.</span>
 										<span class="col-sm-2 col-md-2 col-lg-2">(444) 421 4567</span>
@@ -57,7 +57,7 @@
 										<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarSucursal" href="">Borrar</a></span>
 									</div>
 
-									<div class="row">
+									<div class="row rowHover">
 										<span class="col-sm-4 col-md-4 col-lg-4 ">Sucursal Apatzingan 1</span>							
 										<span class="col-sm-4 col-md-4 col-lg-4">Select Food World S.A. de C.V.</span>
 										<span class="col-sm-2 col-md-2 col-lg-2">(444) 421 4567</span>
@@ -65,7 +65,7 @@
 										<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarSucursal" href="">Borrar</a></span>
 									</div>
 
-									<div class="row">
+									<div class="row rowHover">
 										<span class="col-sm-4 col-md-4 col-lg-4">Erongaricuaro 1</span>							
 										<span class="col-sm-4 col-md-4 col-lg-4">BioHealth S.A. de C.V.</span>
 										<span class="col-sm-2 col-md-2 col-lg-2">(443) 321 4567</span>

@@ -32,6 +32,13 @@ Route::get('departamentos/agregar','DepartmentsController@showAddForm');
 
 
 Route::get('horarios','SchedulesController@index');
+Route::get('horarios/agregar','SchedulesController@showAddForm');
+
+
 Route::get('empleados','EmployeesController@index');
+Route::get('empleados/agregar','EmployeesController@showAddForm');
+
+
+
 Route::get('reportes','ReportsController@index');
 

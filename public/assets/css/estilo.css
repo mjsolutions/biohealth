@@ -194,3 +194,7 @@ section{
     min-width: 100%;
     margin-left: -15px;
 }
+
+.rowHover:hover{
+	background-color: #ECECEC;
+}

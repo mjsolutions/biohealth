@@ -15,4 +15,10 @@ class EmployeesController extends Controller
     	$data["showButtonAdd"] = 1;
     	return view("pages/listEmployees", $data);
     }
+
+    public function showAddForm(){    
+    	$data["titleSection"] = "Agregar un Empleado";
+   		$data["section"] = "empleados";	
+    	return view("pages/formEmployee", $data);
+    }
 }
