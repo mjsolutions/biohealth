@@ -21,6 +21,7 @@ Route::get('inicio','HomeController@index');
 
 Route::get('empresas','EnterprisesController@index');
 Route::get('empresas/agregar','EnterprisesController@showAddForm');
+Route::post('empresas/agregar', ['as' => 'empresas/agregar' , 'uses' => 'EnterprisesController@saveEnterprise']);
 
 
 Route::get('sucursales','BranchesController@index');
