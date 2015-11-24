@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use App\Http\Requests\DepartmentFormRequest;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 
 class DepartmentsController extends Controller
@@ -20,5 +21,9 @@ class DepartmentsController extends Controller
     	$data["titleSection"] = "Agregar un Departamento";
    		$data["section"] = "departamentos";	
     	return view("pages/formDepartment", $data);
+    }
+
+    public function store(DepartmentFormRequest $request){
+        return Redirect::to('departamentos')->with('message', 'Departamento agregado con éxito!');    
     }
 }

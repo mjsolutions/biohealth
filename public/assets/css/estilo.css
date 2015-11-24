@@ -198,3 +198,8 @@ section{
 .rowHover:hover{
 	background-color: #ECECEC;
 }
+
+.alertDivRow{
+	margin-top: -81px;
+	margin-bottom: 29px;
+}

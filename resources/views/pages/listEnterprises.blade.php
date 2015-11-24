@@ -14,6 +14,13 @@
 			        }                  
 			    });
     		});
+
+    		@if(isset($messageAlertTitle))
+    		$("#alertDivRow").click(function(){
+    			$(this).fadeOut(1500);
+    		});
+    		@endif
+
     	});
     </script>	
 @stop
@@ -39,23 +46,13 @@
 											<label class="col-sm-9 col-md-8 col-lg-8 col-md-offset-1 redIdentifier">Empresa:</label>							
 										</div>		
 
-										<div class="row">
-											<div class="col-sm-9 col-md-8 col-lg-8 col-md-offset-1">Select Food World S.A. de C.V.</div>							
-											<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a href="">Editar</a></div>
-											<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarEmpresa" href="">Borrar</a></div>
-										</div>
-
-										<div class="row">
-											<div class="col-sm-9 col-md-8 col-lg-8 col-md-offset-1">MegaSalud S.A. de C.V.</div>							
-											<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a href="">Editar</a></div>
-											<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarEmpresa" href="">Borrar</a></div>
-										</div>
-
-										<div class="row">
-											<div class="col-sm-9 col-md-8 col-lg-8 col-md-offset-1">Select Food World S.A. de C.V.</div>							
-											<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a href="">Editar</a></div>
-											<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarEmpresa" href="">Borrar</a></div>
-										</div>										
+										@foreach($enterprises as $enterprise)
+											<div class="row">
+												<div class="col-sm-9 col-md-8 col-lg-8 col-md-offset-1">{{$enterprise->name_enterprise}}</div>
+												<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a href="">Editar</a></div>
+												<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarEmpresa" href="">Borrar</a></div>
+											</div>
+										@endforeach									
 										
 								</div>
 

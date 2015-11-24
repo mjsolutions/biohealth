@@ -15,21 +15,25 @@ Route::get('/', function () {
     return view("login");
 });
 
-Route::get('login','LoginController@index');
+Route::get('api/getCountiesByStateId/{stateId}','api@getCountiesByStateId');
 
+Route::get('login','LoginController@index');
 Route::get('inicio','HomeController@index');
 
 Route::get('empresas','EnterprisesController@index');
 Route::get('empresas/agregar','EnterprisesController@showAddForm');
-Route::post('empresas/agregar', ['as' => 'empresas/agregar' , 'uses' => 'EnterprisesController@saveEnterprise']);
+Route::post('empresas/agregar', ['as' => 'empresas/agregar' , 'uses' => 'EnterprisesController@store']);
+Route::get('empresas/{operationCode?}','EnterprisesController@index');
 
 
 Route::get('sucursales','BranchesController@index');
 Route::get('sucursales/agregar','BranchesController@showAddForm');
+Route::post('sucursales/agregar', ['as' => 'sucursales/agregar' , 'uses' => 'BranchesController@store']);
 
 
 Route::get('departamentos','DepartmentsController@index');
 Route::get('departamentos/agregar','DepartmentsController@showAddForm');
+Route::post('departamentos/agregar', ['as' => 'departamentos/agregar' , 'uses' => 'DepartmentsController@store']);
 
 
 Route::get('horarios','SchedulesController@index');
