@@ -13,9 +13,9 @@ class CreateDepartmentsTable extends Migration
     public function up()
     {
         Schema::create('departments', function (Blueprint $table) {
-            $table->increments('id_department')->unique();
-            $table->integer('id_branch')->unsigned();
-            $table->foreign('id_branch')->references('id_branch')->on('branches')->onDelete('cascade')->onUpdate('cascade');
+            $table->increments('id')->unique();
+            $table->integer('branch_id')->unsigned();
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name_department', 50);
             $table->timestamps();
          });
@@ -28,6 +28,8 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::drop('departments');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

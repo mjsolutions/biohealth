@@ -6,14 +6,21 @@
     	$( document ).ready(function() {
     		$(".borrarSucursal").click(function(event){
     			event.preventDefault();
+    			var currentDeletePath = $(this).attr("href");
     			$.fancybox.message.confirm({
 			        content:"Esta seguro que desea eliminar ésta sucursal?",
 			        buttons:{yes: "Si", no: "No"},
 			        onYes: function(){
-			        	alert("gracias");				          
+			        	window.location = currentDeletePath;
 			        }                  
 			    });
     		});
+
+    		@if(isset($messageAlertTitle))
+    		$("#alertDivRow").click(function(){
+    			$(this).fadeOut(1500);
+    		});
+    		@endif
     	});
     </script>	
 @stop
@@ -36,42 +43,22 @@
 								<div class="hidden-xs col-sm-10 col-md-10 col-lg-10 col-centered">
 
 									<div class="row">
-										<label class="col-sm-4 col-md-4 col-lg-4 redIdentifier">Sucursal:</label>
-										<label class="col-sm-4 col-md-4 col-lg-4 redIdentifier">Empresa:</label>
-										<label class="col-sm-4 col-md-4 col-lg-4 redIdentifier">Teléfono:</label>
-									</div>		
-
-									<div class="row rowHover">
-										<span class="col-sm-4 col-md-4 col-lg-4 ">Sucursal Morelia 1</span>							
-										<span class="col-sm-4 col-md-4 col-lg-4">MegaSalud S.A. de C.V.</span>
-										<span class="col-sm-2 col-md-2 col-lg-2">(444) 421 4567</span>
-										<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a href="">Editar</a></span>
-										<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarSucursal" href="">Borrar</a></span>
+										<label class="col-sm-4 col-md-2 col-lg-3 col-md-offset-1 col-lg-offset-1 redIdentifier">Sucursal:</label>
+										<label class="col-sm-5 col-md-4 col-lg-3 redIdentifier">Empresa:</label>
+										<label class="hidden-sm col-md-4 col-lg-4 redIdentifier">Teléfono:</label>
 									</div>
 
+									@foreach($branches as $branch)
 									<div class="row rowHover">
-										<span class="col-sm-4 col-md-4 col-lg-4 ">Sucursal Morelia 2</span>							
-										<span class="col-sm-4 col-md-4 col-lg-4">MegaSalud S.A. de C.V.</span>
-										<span class="col-sm-2 col-md-2 col-lg-2">(444) 421 4567</span>
+										<span class="col-sm-4 col-md-2 col-lg-3 col-md-offset-1 col-lg-offset-1 ">{{$branch->name_branch}}</span>							
+										<span class="col-sm-5 col-md-4 col-lg-3">{{$branch->enterprise->name_enterprise}}</span>
+										<span class="hidden-sm col-md-2 col-lg-2">{{$branch->phone}}</span>
 										<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a href="">Editar</a></span>
-										<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarSucursal" href="">Borrar</a></span>
+										<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarSucursal" href="/{{Request::segment(1)}}/borrar/{{$branch->id}}">Borrar</a></span>
 									</div>
+									@endforeach
 
-									<div class="row rowHover">
-										<span class="col-sm-4 col-md-4 col-lg-4 ">Sucursal Apatzingan 1</span>							
-										<span class="col-sm-4 col-md-4 col-lg-4">Select Food World S.A. de C.V.</span>
-										<span class="col-sm-2 col-md-2 col-lg-2">(444) 421 4567</span>
-										<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a href="">Editar</a></span>
-										<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarSucursal" href="">Borrar</a></span>
-									</div>
-
-									<div class="row rowHover">
-										<span class="col-sm-4 col-md-4 col-lg-4">Erongaricuaro 1</span>							
-										<span class="col-sm-4 col-md-4 col-lg-4">BioHealth S.A. de C.V.</span>
-										<span class="col-sm-2 col-md-2 col-lg-2">(443) 321 4567</span>
-										<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a href="">Editar</a></span>
-										<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarSucursal" href="">Borrar</a></span>
-									</div>										
+																		
 										
 								</div>
 

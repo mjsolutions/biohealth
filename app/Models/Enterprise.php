@@ -17,5 +17,9 @@ class Enterprise extends Model
         return $this->hasMany('Branch'); // this matches the Eloquent model
     }
 
+    public function department(){
+        return $this->hasManyThrough('Branch', 'Department');
+    }
+
     
 }

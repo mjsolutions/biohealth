@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 
 use App\Models\Enterprise;
+use App\Models\Branch;
 use App\Models\State;
 use App\Models\County;
 use Input;
@@ -44,11 +45,35 @@ class EnterprisesController extends Controller
     }
 
     public function store(EnterpriseFormRequest $request){
+
+        //Save new Enterprise
         $enterprise = new Enterprise;
         $enterprise->name_enterprise = Input::get('nombre');
         $enterprise->rfc = Input::get('rfc');
         $enterprise->save();
+
+        //Save new Branch
+        $branch = new Branch;
+        $branch->enterprise_id = $enterprise->id;
+        $branch->name_branch = "Matriz";
+        $branch->address = Input::get('direccion');
+        $branch->postalcode = Input::get('codigoPostal');
+        $branch->state_id = Input::get('estado');
+        $branch->county_id = Input::get('municipio');
+        $branch->phone = Input::get('telefono');
+        $branch->save();
+
         return Redirect::to('empresas/agregado');    
     }
 
+
+    public function delete($id){
+        Enterprise::findOrFail($id)->destroy($id);
+        return Redirect::to('empresas/eliminado');    
+    }
+
+
+
+
 }
+

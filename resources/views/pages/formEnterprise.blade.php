@@ -9,32 +9,25 @@
     			event.preventDefault();
     			
     			if($("#nombreEmpresa").val() == ""){
-    				$("#nombreEmpresa").parent().addClass("has-error");
     				$("#nombreEmpresa").focus();    				
     			}
     			else if($("#direccion").val() == ""){
-					$("#direccion").parent().addClass("has-error");
-    				$("#direccion").focus();
+					$("#direccion").focus();
     			}
     			else if($("#codigoPostal").val() == ""){
-					$("#codigoPostal").parent().addClass("has-error");
-    				$("#codigoPostal").focus();
+					$("#codigoPostal").focus();
     			}
     			else if($("#estado option:selected").text() == "Seleccione estado"){
-					$("#estado").parent().addClass("has-error");
-    				$("#estado").focus();
+					$("#estado").focus();
     			}
     			else if($("#municipio option:selected").text() == "Seleccione municipio"){
-					$("#municipio").parent().addClass("has-error");
-    				$("#municipio").focus();
+					$("#municipio").focus();
     			}
     			else if($("#telefono").val() == ""){
-					$("#telefono").parent().addClass("has-error");
-    				$("#telefono").focus();
+					$("#telefono").focus();
     			}
     			else if($("#rfc").val() == ""){
-					$("#rfc").parent().addClass("has-error");
-    				$("#rfc").focus();
+					$("#rfc").focus();
     			}
     			else{
     				$("#submitForm").submit();
@@ -42,11 +35,18 @@
     		});
 
 			$('#estado').change(function(){
-				var stateId = this.value();
-				alert(stateId);
-				//$.ajax({
-				//	url: "/api/getCountiesByStateId/"+stateId,
-				//});
+				var stateId = $(this).val();
+				$.ajax({
+					url: "/api/getCountiesByStateId/"+stateId,
+					success: function(response){
+						var counties = response;
+						var countiesSelect ='<option selected="true" disabled="disabled">Seleccione municipio</option>';
+						for(i=0; i<counties.length; i++){
+							countiesSelect+='<option value="'+counties[i].id+'">'+counties[i].nombre+'</option>';
+						}
+						$("#municipio").html(countiesSelect);
+					}
+				});				
 			});
 
 			@if (count($errors) > 0)
@@ -141,10 +141,7 @@
 											</div>							
 										</div>
 
-										<div class="form-group mtDivision">							
-											<a href="/{{$section}}" class="mtDivision btn btn-danger col-sm-2 col-md-2 col-lg-2 col-sm-offset-2 col-md-offset-2">Cancelar</a>
-											<input value="Agregar" type="submit" id="botonAgregar" class="mtDivision btn btn-primary col-sm-2 col-md-2 col-lg-2 col-sm-offset-4 col-md-offset-4"/>
-										</div>		
+										@include("partials/buttonsFormSection")		
 									{!! Form::close() !!}
 								</div>
 							</div>

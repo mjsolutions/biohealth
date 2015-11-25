@@ -13,7 +13,7 @@ class CreateEnterprisesTable extends Migration
     public function up()
     {
         Schema::create('enterprises', function (Blueprint $table) {
-            $table->increments('id_enterprise')->unique();
+            $table->increments('id')->unique();
             $table->string('name_enterprise', 50);
             $table->string('rfc', 20);
             $table->timestamps();
@@ -27,7 +27,9 @@ class CreateEnterprisesTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::drop('enterprises');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }
 

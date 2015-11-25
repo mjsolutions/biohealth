@@ -1,4 +1,4 @@
-<div class="hidden-xs row mtDivision mb100">
+<!-- <div class="hidden-xs row mtDivision mb100">
 	<div class="col-sm-6 col-md-6 col-lg-6 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 text-center">
 		<ul class="pagination">
 			<li><a href="">&lt;&lt;</a></li>
@@ -12,4 +12,4 @@
 			<li><a href="">&gt;&gt;</a></li>
 		</ul>								
 	</div>
-</div>
+</div> -->

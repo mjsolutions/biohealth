@@ -439,10 +439,7 @@
 										</div>
 
 
-										<div class="form-group mtDivision">							
-											<a href="/{{$section}}" class="mtDivision btn btn-danger  col-sm-2 col-md-2 col-lg-2 col-sm-offset-2 col-md-offset-2">Cancelar</a>
-											<button id="botonAgregar" class="mtDivision btn btn-primary col-sm-2 col-md-2 col-lg-2 col-sm-offset-4 col-md-offset-4">Agregar</button>							
-										</div>		
+										@include("partials/buttonsFormSection")	
 									</form>
 								</div>
 							</div>

@@ -6,7 +6,7 @@
 			</div>
 
 			@if(isset($showButtonAdd))
-			<div class="col-sm-2 col-md-2 col-lg-2 col-sm-offset-9 col-md-offset-9 col-lg-offset-9 text-centered mt-40">
+			<div class="col-sm-3 col-md-2 col-lg-2 col-sm-offset-9 col-md-offset-9 col-lg-offset-9 text-centered mt-40">
 				<a class="btn btn-warning buttonAdd" href="/{{Request::segment(1)}}/agregar">Agregar</a>
 			</div>
 			@endif
@@ -15,7 +15,7 @@
 
 		@if(isset($messageAlertTitle))
 		<div class="row alertDivRow" id="alertDivRow">
-			<div class="col-sm-5 col-md-4 col-lg-4 col-centered text-centered alert alert-success">
+			<div class="col-sm-6 col-md-5 col-lg-5 col-centered text-centered alert alert-success">
 				<p class="text-centered">{{$messageAlertTitle}}</p>
 			</div>
 		</div>

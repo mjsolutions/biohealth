@@ -13,16 +13,21 @@ class CreateBranchesTable extends Migration
     public function up()
     {
         Schema::create('branches', function (Blueprint $table) {
-            $table->increments('id_branch')->unique();
+            $table->increments('id')->unique();
             
-            $table->integer('id_enterprise')->unsigned();
-            $table->foreign('id_enterprise')->references('id_enterprise')->on('enterprises')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('enterprise_id')->unsigned();
+            $table->foreign('enterprise_id')->references('id')->on('enterprises')->onDelete('cascade')->onUpdate('cascade');
 
             $table->string('name_branch', 50);
             $table->string('address', 100);
             $table->integer('postalcode');
-            $table->string('state', 100);
-            $table->string('county', 100);
+
+            $table->integer('state_id')->unsigned();
+            $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade')->onUpdate('cascade');
+
+            $table->integer('county_id')->unsigned();
+            $table->foreign('county_id')->references('id')->on('counties')->onDelete('cascade')->onUpdate('cascade');
+            
             $table->string('phone', 15);
             $table->timestamps();            
          });
@@ -35,6 +40,8 @@ class CreateBranchesTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::drop('branches');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

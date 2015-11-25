@@ -8,38 +8,46 @@
     		$("#botonAgregar").click(function(event){
     			event.preventDefault();
     			if($("#empresa option:selected").text() == "Seleccione empresa"){
-					$("#empresa").parent().addClass("has-error");
-    				$("#empresa").focus();
+					$("#empresa").focus();
     			}    			
     			else if($("#nombreSucursal").val() == ""){
-    				$("#nombreSucursal").parent().addClass("has-error");
     				$("#nombreSucursal").focus();    				
     			}
     			else if($("#direccion").val() == ""){
-					$("#direccion").parent().addClass("has-error");
-    				$("#direccion").focus();
+					$("#direccion").focus();
     			}
     			else if($("#codigoPostal").val() == ""){
-					$("#codigoPostal").parent().addClass("has-error");
-    				$("#codigoPostal").focus();
+					$("#codigoPostal").focus();
     			}
     			else if($("#estado option:selected").text() == "Seleccione estado"){
-					$("#estado").parent().addClass("has-error");
-    				$("#estado").focus();
+					$("#estado").focus();
     			}
     			else if($("#municipio option:selected").text() == "Seleccione municipio"){
-					$("#municipio").parent().addClass("has-error");
-    				$("#municipio").focus();
+					$("#municipio").focus();
     			}
     			else if($("#telefono").val() == ""){
-					$("#telefono").parent().addClass("has-error");
-    				$("#telefono").focus();
+					$("#telefono").focus();
     			}
     			else{
-    				alert("hola");
+    				$("#submitForm").submit();
     			}			
 
     		});
+
+    		$('#estado').change(function(){
+				var stateId = $(this).val();
+				$.ajax({
+					url: "/api/getCountiesByStateId/"+stateId,
+					success: function(response){
+						var counties = response;
+						var countiesSelect ='<option selected="true" disabled="disabled">Seleccione municipio</option>';
+						for(i=0; i<counties.length; i++){
+							countiesSelect+='<option value="'+counties[i].id+'">'+counties[i].nombre+'</option>';
+						}
+						$("#municipio").html(countiesSelect);
+					}
+				});				
+			});
 
 			@if (count($errors) > 0)
 				$.fancybox({
@@ -72,7 +80,7 @@
 							
 							<div class="row">
 								<div class="hidden-xs col-sm-8 col-md-8 col-lg-8 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
-									{!! Form::open(array('route' => 'sucursales/agregar', 'class' => 'form-horizontal', 'role' => 'form')) !!}
+									{!! Form::open(array('route' => 'sucursales/agregar', 'class' => 'form-horizontal', 'role' => 'form' , 'id' => 'submitForm')) !!}
 										<div class="shadow-division">
 											<label class="mtDivision ml15 redIdentifier">Identificación:</label>						
 											<div class="form-group">
@@ -80,10 +88,9 @@
 												<div class="col-sm-8 col-md-8 col-lg-8">
 													<select value="{{Input::old('empresa')}}" name="empresa" id="empresa" class="form-control">
 														<option selected="true" disabled="disabled">Seleccione empresa</option>   
-													 	<option value="volvo">MegaSalud</option>
-													 	<option value="volvo">Select Food World</option>
-													 	<option value="volvo">CIGDMAC</option>
-													 	<option value="volvo">Kamuhro</option>									 	
+													 	@foreach($enterprises as $enterprise)
+													 	<option value="{{$enterprise->id}}">{{$enterprise->name_enterprise}}</option>
+													 	@endforeach
 													</select>
 												</div>
 											</div>
@@ -114,10 +121,9 @@
 								     			<div class="col-sm-8 col-md-8 col-lg-8">
 													<select value="{{Input::old('estado')}}" name="estado" id="estado" class="form-control">
 														<option selected="true" disabled="disabled">Seleccione estado</option>   
-													 	<option value="volvo">Michoacán</option>
-													 	<option value="volvo">Estado de México</option>
-													 	<option value="volvo">Baja California Sur</option>
-													 	<option value="volvo">Jalisco</option>									 	
+													 	@foreach($states as $state)
+													 	<option value="{{$state->id}}">{{$state->nombre}}</option>
+													 	@endforeach
 													</select>
 												</div>
 											</div>
@@ -127,10 +133,6 @@
 								     			<div class="col-sm-8 col-md-8 col-lg-8">
 													<select value="{{Input::old('municipio')}}" name="municipio" id="municipio" class="form-control">
 														<option selected="true" disabled="disabled">Seleccione municipio</option>   
-													 	<option value="volvo">Morelia</option>
-													 	<option value="volvo">Zamora</option>
-													 	<option value="volvo">Lazaro Cardenas</option>
-													 	<option value="volvo">Uruápan</option>									 	
 													</select>
 												</div>
 											</div>
@@ -144,10 +146,7 @@
 																		
 										</div>
 
-										<div class="form-group mtDivision">							
-											<a href="/{{$section}}" class="mtDivision btn btn-danger  col-sm-2 col-md-2 col-lg-2 col-sm-offset-2 col-md-offset-2">Cancelar</a>
-											<input value="Agregar" type="submit" id="abotonAgregar" class="mtDivision btn btn-primary col-sm-2 col-md-2 col-lg-2 col-sm-offset-4 col-md-offset-4"/>
-										</div>		
+										@include("partials/buttonsFormSection")		
 									{!! Form::close() !!}
 								</div>
 							</div>

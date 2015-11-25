@@ -8,22 +8,59 @@ use App\Http\Requests\BranchFormRequest;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 
+use App\Models\Enterprise;
+use App\Models\Branch;
+use App\Models\State;
+use App\Models\County;
+use Input;
+
 class BranchesController extends Controller
 {
-    public function index(){
+    public function index($operationCode = null){
     	$data["titleSection"] = "Lista de Sucursales";
     	$data["section"] = "sucursales";
     	$data["showButtonAdd"] = 1;
-    	return view("pages/listBranches", $data);
+    	$data["branches"] = Branch::all();
+
+        if(isset($operationCode)){
+            if($operationCode == "agregado"){
+                $data["messageAlertTitle"] = "Sucursal agregada con éxito!";
+            }
+            if($operationCode == "editado"){
+                $data["messageAlertTitle"] = "Sucursal editada con éxito!";
+            }
+            if($operationCode == "eliminado"){
+                $data["messageAlertTitle"] = "Sucursal eliminada con éxito!";
+            }
+        }
+        return view("pages/listBranches", $data);
     }
 
     public function showAddForm(){    
     	$data["titleSection"] = "Agregar una Sucursal";
-   		$data["section"] = "sucursales";	
+   		$data["section"] = "sucursales";
+        $data["enterprises"] = Enterprise::all();
+        $data["states"] = State::all();
     	return view("pages/formBranch", $data);
     }
 
     public function store(BranchFormRequest $request){
-        return Redirect::to('sucursales')->with('message', 'Sucursal agregada con éxito!');    
+        //Save new Branch
+        $branch = new Branch;
+        $branch->enterprise_id = Input::get('empresa');
+        $branch->name_branch = Input::get('nombre');
+        $branch->address = Input::get('direccion');
+        $branch->postalcode = Input::get('codigoPostal');
+        $branch->state_id = Input::get('estado');
+        $branch->county_id = Input::get('municipio');
+        $branch->phone = Input::get('telefono');
+        $branch->save();
+
+        return Redirect::to('sucursales/agregado');
+    }
+
+    public function delete($id){
+        Branch::findOrFail($id)->destroy($id);
+        return Redirect::to('sucursales/eliminado');    
     }
 }

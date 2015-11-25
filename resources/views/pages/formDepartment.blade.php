@@ -7,21 +7,33 @@
     		$("#botonAgregar").click(function(event){
     			event.preventDefault();
     			if($("#empresa option:selected").text() == "Seleccione empresa"){
-					$("#empresa").parent().addClass("has-error");
-    				$("#empresa").focus();
+					$("#empresa").focus();
     			}    			
     			else if($("#sucursal option:selected").text() == "Seleccione sucursal"){
-					$("#sucursal").parent().addClass("has-error");
-    				$("#sucursal").focus();
+					$("#sucursal").focus();
     			}
     			else if($("#nombreDepartamento").val() == ""){
-					$("#nombreDepartamento").parent().addClass("has-error");
-    				$("#nombreDepartamento").focus();
+					$("#nombreDepartamento").focus();
     			}
     			else{
-    				alert("hola");
+    				$("#submitForm").submit();
     			}
     		});
+
+    		$('#empresa').change(function(){
+				var enterpriseId = $(this).val();
+				$.ajax({
+					url: "/api/getBranchesByEnterpriseId/"+enterpriseId,
+					success: function(response){
+						var branches = response;
+						var branchesSelect ='<option selected="true" disabled="disabled">Seleccione sucursal</option>';
+						for(i=0; i<branches.length; i++){
+							branchesSelect+='<option value="'+branches[i].id+'">'+branches[i].name_branch+'</option>';
+						}
+						$("#sucursal").html(branchesSelect);
+					}
+				});				
+			});
 
     		@if (count($errors) > 0)
 				$.fancybox({
@@ -53,18 +65,17 @@
 							
 							<div class="row">
 								<div class="hidden-xs col-sm-8 col-md-8 col-lg-8 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
-									{!! Form::open(array('route' => 'departamentos/agregar', 'class' => 'form-horizontal', 'role' => 'form')) !!}
+									{!! Form::open(array('route' => 'departamentos/agregar', 'class' => 'form-horizontal', 'role' => 'form' , 'id' => 'submitForm')) !!}
 										<div class="shadow-division">
 											<label class="mtDivision ml15 redIdentifier">Identificación:</label>						
 											<div class="form-group">
 												<label class="control-label pull-text-left col-sm-2 col-md-2 col-lg-2 col-sm-offset-1 col-md-offset-1" for="empresa">Empresa:</label>
 												<div class="col-sm-8 col-md-8 col-lg-8">
-													<select value="{{Input::old('empresa')}}" name="empresa" id="empresa" class="form-control">
+													<select name="empresa" id="empresa" class="form-control">
 														<option selected="true" disabled="disabled">Seleccione empresa</option>
-													 	<option value="volvo">MegaSalud</option>
-													 	<option value="volvo">Select Food World</option>
-													 	<option value="volvo">CIGDMAC</option>
-													 	<option value="volvo">Kamuhro</option>									 	
+													 	@foreach($enterprises as $enterprise)
+													 	<option value="{{$enterprise->id}}">{{$enterprise->name_enterprise}}</option>
+													 	@endforeach
 													</select>
 												</div>
 											</div>
@@ -72,12 +83,8 @@
 											<div class="form-group">
 												<label class="control-label pull-text-left col-sm-2 col-md-2 col-lg-2 col-sm-offset-1 col-md-offset-1" for="sucursal">Sucursal:</label>
 												<div class="col-sm-8 col-md-8 col-lg-8">
-													<select value="{{Input::old('sucursal')}}" name="sucursal" id="sucursal" class="form-control">
-														<option selected="true" disabled="disabled">Seleccione sucursal</option>
-													 	<option value="volvo">Matriz</option>
-													 	<option value="volvo">Sucursal Morelia</option>
-													 	<option value="volvo">Sucursal Patzcuaro</option>
-													 	<option value="volvo">Sucursal Erongaricuaro</option>									 	
+													<select name="sucursal" id="sucursal" class="form-control">
+														<option selected="true" disabled="disabled">Seleccione sucursal</option>													 										 	
 													</select>
 												</div>
 											</div>
@@ -91,10 +98,7 @@
 
 										</div>
 
-										<div class="form-group mtDivision">							
-											<a href="/{{$section}}" class="mtDivision btn btn-danger  col-sm-2 col-md-2 col-lg-2 col-sm-offset-2 col-md-offset-2">Cancelar</a>
-											<input value="Agregar" type="submit" id="abotonAgregar" class="mtDivision btn btn-primary col-sm-2 col-md-2 col-lg-2 col-sm-offset-4 col-md-offset-4"/>
-										</div>		
+										@include("partials/buttonsFormSection")
 									{!! Form::close() !!}
 								</div>
 							</div>
