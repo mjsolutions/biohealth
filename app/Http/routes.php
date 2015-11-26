@@ -27,13 +27,11 @@ Route::post('empresas/agregar', ['as' => 'empresas/agregar' , 'uses' => 'Enterpr
 Route::get('empresas/borrar/{id}','EnterprisesController@delete')->where('id', '[0-9]+');
 Route::get('empresas/{operationCode?}','EnterprisesController@index');
 
-
 Route::get('sucursales','BranchesController@index');
 Route::get('sucursales/agregar','BranchesController@showAddForm');
 Route::post('sucursales/agregar', ['as' => 'sucursales/agregar' , 'uses' => 'BranchesController@store']);
 Route::get('sucursales/borrar/{id}','BranchesController@delete')->where('id', '[0-9]+');
 Route::get('sucursales/{operationCode?}','BranchesController@index');
-
 
 Route::get('departamentos','DepartmentsController@index');
 Route::get('departamentos/agregar','DepartmentsController@showAddForm');
@@ -41,9 +39,11 @@ Route::post('departamentos/agregar', ['as' => 'departamentos/agregar' , 'uses' =
 Route::get('departamentos/borrar/{id}','DepartmentsController@delete')->where('id', '[0-9]+');
 Route::get('departamentos/{operationCode?}','DepartmentsController@index');
 
-
 Route::get('horarios','SchedulesController@index');
 Route::get('horarios/agregar','SchedulesController@showAddForm');
+Route::post('horarios/agregar', ['as' => 'horarios/agregar' , 'uses' => 'SchedulesController@store']);
+Route::get('horarios/borrar/{id}','SchedulesController@delete')->where('id', '[0-9]+');
+Route::get('horarios/{operationCode?}','SchedulesController@index');
 
 
 Route::get('empleados','EmployeesController@index');

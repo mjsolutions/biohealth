@@ -13,15 +13,13 @@
 			        }                  
 			    });
     		});
-
     		@if(isset($messageAlertTitle))
     		$("#alertDivRow").click(function(){
     			$(this).fadeOut(1500);
     		});
     		@endif
-
     	});
-    </script>	
+    </script>
 @stop
 @section("content")
 	@include("partials/header")
@@ -44,10 +42,10 @@
 					</div>
 					@endforeach
 				</div>
-				@include("partials/pagination")	
+				@include("partials/pagination")
 			</div>
 		</section>
-	</div>	
+	</div>
 	@include("partials/xsFallback")
 	@include("partials/footer")
 @stop
