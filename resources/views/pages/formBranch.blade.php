@@ -76,7 +76,7 @@
 
 							@include("partials/titleSection")
 
-							@include("partials/errorsModal")					
+							@include("partials/errorsModal")
 							
 							<div class="row">
 								<div class="hidden-xs col-sm-8 col-md-8 col-lg-8 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">

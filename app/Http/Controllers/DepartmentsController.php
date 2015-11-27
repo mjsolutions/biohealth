@@ -44,6 +44,7 @@ class DepartmentsController extends Controller
     public function store(DepartmentFormRequest $request){
         //Save new Department
         $department = new Department;
+        $department->enterprise_id = Input::get('empresa');
         $department->branch_id = Input::get('sucursal');
         $department->name_department = Input::get('nombre');
         $department->save();

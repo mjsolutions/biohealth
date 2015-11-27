@@ -432,7 +432,7 @@
 												
 												<label class="control-label pull-text-left col-sm-3 col-md-3 col-lg-3" for="dias">Horas a cumplir:</label>
 												<div class="col-sm-3 col-md-3 col-lg-3">
-													<input type="text" class="form-control" id="horasACumplir" placeholder="">
+													<input type="text" name="horasDiarias" class="form-control" id="horasACumplir" placeholder="">
 												</div>
 												
 											</div>

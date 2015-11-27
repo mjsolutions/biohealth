@@ -39,7 +39,7 @@ class EnterprisesController extends Controller
     public function showAddForm(){    
     	$data["titleSection"] = "Agregar una Empresa";
    		$data["section"] = "empresas";	
-        $data["states"] = State::all();  
+        $data["states"] = State::all();
 
     	return view("pages/formEnterprise", $data);
     }

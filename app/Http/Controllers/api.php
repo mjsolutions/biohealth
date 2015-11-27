@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\State;
 use App\Models\County;
 use App\Models\Branch;
+use App\Models\Department;
 use Input;
 
 
@@ -22,5 +23,10 @@ class api extends Controller
     public function getBranchesByEnterpriseId($enterpriseId)
     {
         return Branch::select("id", "name_branch")->where("enterprise_id", "=", $enterpriseId)->get();
+    }
+
+    public function getDepartmentsByBranchId($branchId)
+    {
+        return Department::select("id", "name_department")->where("branch_id", "=", $branchId)->get();
     }
 }

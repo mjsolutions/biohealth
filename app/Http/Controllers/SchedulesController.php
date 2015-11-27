@@ -67,14 +67,13 @@ class SchedulesController extends Controller
                     $schedule->{"end_".$x} = date("23:59:59");
                     $numDiasSeleccionados++;
                 }
-                $total_time_schedule = ( (($comida - $entrada) + ($salida - $regreso)) * $numDiasSeleccionados);
-                $schedule->total_time = (($total_time_schedule / 60) / 60); //Conversion a minutos: /60... y a horas de nuevo: /60
+                $tiempo_total_semanal = ( (($comida - $entrada) + ($salida - $regreso)) * $numDiasSeleccionados);
+                $schedule->total_time = (($tiempo_total_semanal / 60) / 60); //Conversion a minutos: /60... y a horas de nuevo: /60
             }
             else{
                 //Horarios distintos para los dias marcados
                 $diasSeleccionados = Input::get('diasFijo');
-                $numDiasSeleccionados = 0;
-                $total_time_schedule = 0;
+                $tiempo_total_semanal = 0;
                 foreach ($diasSeleccionados as $diaSeleccionado) {
                     $dia = "".$diaSeleccionado;
                     $entrada = strtotime("1970-01-01 ".Input::get('entrance_'.$dia));
@@ -88,19 +87,34 @@ class SchedulesController extends Controller
                     $schedule->{"departure_".$dia} = Input::get('departure_'.$dia);
                     $schedule->{"end_".$dia} = date("23:59:59");
 
-                    $total_time_per_day = ( (($comida - $entrada) + ($salida - $regreso)) );
+                    $tiempo_total_diario = ( (($comida - $entrada) + ($salida - $regreso)) );
 
-                    $total_time_schedule += $total_time_per_day;
-
-                    $numDiasSeleccionados++;
+                    $tiempo_total_semanal += $tiempo_total_diario;                  
                 }
-                $schedule->total_time = (($total_time_schedule / 60) / 60); //Conversion a minutos: /60... y a horas de nuevo: /60
+                $schedule->total_time = (($tiempo_total_semanal / 60) / 60); //Conversion a minutos: /60... y a horas de nuevo: /60
             }
         }
 
         if(Input::get('tipo') == 2){
             //Horario Variable
             $schedule->break = 0; //Los horarios variable no tienen hora de comida
+            $numDiasSeleccionados = 0;
+            $horasSemanales = 0;
+            $diasSeleccionados = Input::get('diasVariable');
+            $horasDiarias = strtotime("1970-01-01 ".Input::get('horasDiarias'));
+
+
+            foreach ($diasSeleccionados as $diaSeleccionado) {
+                $x = "".$diaSeleccionado;
+                $schedule->{"start_".$x} = date("00:00:00");
+                $schedule->{"end_".$x} = date("23:59:59");
+                $numDiasSeleccionados++;
+            }
+
+            $horasSemanales = $horasDiarias*$numDiasSeleccionados;
+
+
+            $schedule->total_time = (($horasSemanales / 60) / 60);
         }
 
         $schedule->save();
@@ -112,4 +126,5 @@ class SchedulesController extends Controller
         return Redirect::to('horarios/eliminado');    
     }
 }
+
 

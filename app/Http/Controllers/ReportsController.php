@@ -10,8 +10,8 @@ use App\Http\Controllers\Controller;
 class ReportsController extends Controller
 {
     public function index(){
-    	$data["titleSection"] = "Reportes";
+    	$data["titleSection"] = "Reportes de Asistencia";
     	$data["section"] = "reportes";
-    	return view("pages/listEnterprises", $data);
+    	return view("pages/listReports", $data);
     }
 }

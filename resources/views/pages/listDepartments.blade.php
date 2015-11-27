@@ -33,13 +33,15 @@
 			<div class="row">
 				<div class="hidden-xs col-sm-10 col-md-10 col-lg-10 col-centered">
 					<div class="row">
-						<label class="col-sm-5 col-md-3 col-lg-3 col-md-offset-1 redIdentifier">Departamento:</label>
-						<label class="col-sm-4 col-md-4 col-lg-4 col-md-offset-1 redIdentifier">Pertenece a:</label>
+						<label class="col-sm-4 col-md-3 col-lg-3 col-md-offset-1 redIdentifier">Departamento:</label>
+						<label class="hidden-sm col-md-3 col-lg-3 redIdentifier">Empresa:</label>
+						<label class="col-sm-5 col-md-2 col-lg-2 redIdentifier">Sucursal:</label>
 					</div>
 					@foreach($departments as $department)
 					<div class="row rowHover">
-						<div class="col-sm-5 col-md-3 col-lg-3 col-md-offset-1">{{$department->name_department}}</div>							
-						<div class="col-sm-4 col-md-4 col-lg-4 col-md-offset-1">{{$department->branch->name_branch}}</div>
+						<div class="col-sm-4 col-md-3 col-lg-3 col-md-offset-1 hideText">{{$department->name_department}}</div>							
+						<div class="hidden-sm col-md-3 col-lg-3 hideText">{{$department->enterprise->name_enterprise}}</div>
+						<div class="col-sm-5 col-md-2 col-lg-2 hideText">{{$department->branch->name_branch}}</div>
 						<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a href="">Editar</a></div>
 						<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarDepartamento" href="/{{Request::segment(1)}}/borrar/{{$department->id}}">Borrar</a></div>
 					</div>

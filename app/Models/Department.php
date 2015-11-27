@@ -16,5 +16,10 @@ class Department extends Model
     public function branch() {
         return $this->belongsTo('App\Models\Branch'); // this matches the Eloquent model
     }    
+
+    // each Department BELONGS TO a Enterprise
+    public function Enterprise() {
+        return $this->belongsTo('App\Models\Enterprise'); // this matches the Eloquent model
+    } 
    
 }

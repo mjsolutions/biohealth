@@ -203,3 +203,9 @@ section{
 	margin-top: -81px;
 	margin-bottom: 29px;
 }
+
+.hideText{
+	white-space: nowrap;      
+	overflow: hidden;         
+	text-overflow: ellipsis;  
+}

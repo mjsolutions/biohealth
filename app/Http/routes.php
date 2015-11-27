@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::get('api/getCountiesByStateId/{stateId}','api@getCountiesByStateId');
 Route::get('api/getBranchesByEnterpriseId/{enterpriseId}','api@getBranchesByEnterpriseId');
+Route::get('api/getDepartmentsByBranchId/{branchId}','api@getDepartmentsByBranchId');
 
 Route::get('login','LoginController@index');
 Route::get('inicio','HomeController@index');
@@ -45,9 +46,11 @@ Route::post('horarios/agregar', ['as' => 'horarios/agregar' , 'uses' => 'Schedul
 Route::get('horarios/borrar/{id}','SchedulesController@delete')->where('id', '[0-9]+');
 Route::get('horarios/{operationCode?}','SchedulesController@index');
 
-
 Route::get('empleados','EmployeesController@index');
 Route::get('empleados/agregar','EmployeesController@showAddForm');
+Route::post('empleados/agregar', ['as' => 'empleados/agregar' , 'uses' => 'EmployeesController@store']);
+Route::get('empleados/borrar/{id}','EmployeesController@delete')->where('id', '[0-9]+');
+Route::get('empleados/{operationCode?}','EmployeesController@index');
 
 
 
