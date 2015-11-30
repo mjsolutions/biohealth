@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\EnterpriseFormRequest;
+use App\Http\Requests\EnterpriseEditRequest;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 
@@ -33,15 +34,16 @@ class EnterprisesController extends Controller
                 $data["messageAlertTitle"] = "Empresa eliminada con éxito!";
             }
         }
-    	return view("pages/listEnterprises", $data);
+    	return view("pages/lists/listEnterprises", $data);
     }
 
     public function showAddForm(){    
     	$data["titleSection"] = "Agregar una Empresa";
-   		$data["section"] = "empresas";	
+   		$data["section"] = "empresas";
+        $data["buttonSaveFormText"] = "Agregar";
         $data["states"] = State::all();
 
-    	return view("pages/formEnterprise", $data);
+    	return view("pages/forms/formEnterprise", $data);
     }
 
     public function store(EnterpriseFormRequest $request){
@@ -65,6 +67,27 @@ class EnterprisesController extends Controller
 
         return Redirect::to('empresas/agregado');    
     }
+
+    public function showEditForm($id){    
+        $data["titleSection"] = "Editar Empresa";
+        $data["section"] = "empresas";
+        $data["buttonSaveFormText"] = "Guardar";
+        $data["enterprise"] = Enterprise::findOrFail($id);
+        $data["states"] = State::all();
+        return view("pages/edits/editEnterprise", $data);
+    }
+
+    public function update(EnterpriseEditRequest $request, $id){
+        //Update Enterprise
+        $enterprise = Enterprise::findOrFail($id);
+        $enterprise->name_enterprise = Input::get('nombre');
+        $enterprise->rfc = Input::get('rfc');
+        $enterprise->save();
+
+        return Redirect::to('empresas/editado');    
+    }
+
+
 
 
     public function delete($id){

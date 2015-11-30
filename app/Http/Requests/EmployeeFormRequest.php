@@ -25,7 +25,7 @@ class EmployeeFormRequest extends Request
     {
         return [            
             'nombre' => 'required',
-            'usuario' => 'required|unique:employees,user',
+            'usuario' => 'required|unique:employees,user,'.$this->segment(3),
             'clave' => 'required',
             'empresa' => 'required',
             'sucursal' => 'required',
@@ -37,7 +37,7 @@ class EmployeeFormRequest extends Request
             'codigoPostal' => 'required',
             'telefono' => 'required',
             'celular' => 'required',
-            'correo' => 'required|unique:employees,email',
+            'correo' => 'required|unique:employees,email,'.$this->segment(3),
             
         ];
     }

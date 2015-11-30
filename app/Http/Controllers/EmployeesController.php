@@ -36,18 +36,18 @@ class EmployeesController extends Controller
                 $data["messageAlertTitle"] = "Empleado eliminado con éxito!";
             }
         }
-    	return view("pages/listEmployees", $data);
+    	return view("pages/lists/listEmployees", $data);
     }
 
     public function showAddForm(){    
     	$data["titleSection"] = "Agregar un Empleado";
-   		$data["section"] = "empleados";	
-
+   		$data["section"] = "empleados";
+        $data["buttonSaveFormText"] = "Agregar";
         $data["enterprises"] = Enterprise::all();
         $data["schedules"] = Schedule::all();
         $data["states"] = State::all();
 
-    	return view("pages/formEmployee", $data);
+    	return view("pages/forms/formEmployee", $data);
     }
 
     public function store(EmployeeFormRequest $request){
@@ -73,10 +73,52 @@ class EmployeesController extends Controller
         return Redirect::to('empleados/agregado');        
     }
 
+    public function showEditForm($id){
+        $data["titleSection"] = "Editar Empleado";
+        $data["section"] = "empleados";
+        $data["buttonSaveFormText"] = "Guardar";
+        $data["employee"] = Employee::findOrFail($id);
+        $data["enterprises"] = Enterprise::all();
+        $data["branches"] = Branch::where('enterprise_id', '=', $data["employee"]->enterprise_id)->get();
+        $data["departments"] = Department::where('branch_id', '=', $data["employee"]->branch_id)->get();
+        $data["schedules"] = Schedule::all();
+        $data["states"] = State::all();
+        $data["counties"] = County::where('estado_id', '=', $data["employee"]->state_id)->get();
+        return view("pages/edits/editEmployee", $data);
+    }
+
+    public function update(EmployeeFormRequest $request, $id){
+        //Update Department
+        $employee = Employee::findOrFail($id);
+        $employee->name_employee = Input::get('nombre');
+        $employee->user = Input::get('usuario');
+        $employee->password = Input::get('clave');
+
+        $employee->enterprise_id = Input::get('empresa');
+        $employee->branch_id = Input::get('sucursal');
+        $employee->department_id = Input::get('departamento');
+        $employee->schedule_id = Input::get('horario');
+
+        $employee->address = Input::get('domicilio');
+        $employee->postalcode = Input::get('codigoPostal');
+
+        $employee->state_id = Input::get('estado');
+        $employee->county_id = Input::get('municipio');
+
+        $employee->phone = Input::get('telefono');
+        $employee->cellphone = Input::get('celular');
+
+        $employee->email = Input::get('correo');        
+
+        $employee->save();
+        return Redirect::to('empleados/editado');    
+    }
+
     public function delete($id){
         Employee::findOrFail($id)->destroy($id);
         return Redirect::to('empleados/eliminado');    
     }
 }
+
 
 

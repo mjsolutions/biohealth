@@ -12,6 +12,6 @@ class ReportsController extends Controller
     public function index(){
     	$data["titleSection"] = "Reportes de Asistencia";
     	$data["section"] = "reportes";
-    	return view("pages/listReports", $data);
+    	return view("pages/lists/listReports", $data);
     }
 }

@@ -33,15 +33,16 @@ class BranchesController extends Controller
                 $data["messageAlertTitle"] = "Sucursal eliminada con éxito!";
             }
         }
-        return view("pages/listBranches", $data);
+        return view("pages/lists/listBranches", $data);
     }
 
     public function showAddForm(){    
     	$data["titleSection"] = "Agregar una Sucursal";
    		$data["section"] = "sucursales";
+        $data["buttonSaveFormText"] = "Agregar";
         $data["enterprises"] = Enterprise::all();
         $data["states"] = State::all();
-    	return view("pages/formBranch", $data);
+    	return view("pages/forms/formBranch", $data);
     }
 
     public function store(BranchFormRequest $request){
@@ -57,6 +58,31 @@ class BranchesController extends Controller
         $branch->save();
 
         return Redirect::to('sucursales/agregado');
+    }
+
+    public function showEditForm($id){
+        $data["titleSection"] = "Editar Sucursal";
+        $data["section"] = "sucursales";
+        $data["buttonSaveFormText"] = "Guardar";
+        $data["branch"] = Branch::findOrFail($id);
+        $data["enterprises"] = Enterprise::all();
+        $data["states"] = State::all();        
+        $data["counties"] = County::where('estado_id', '=', $data["branch"]->state_id)->get();
+        return view("pages/edits/editBranch", $data);
+    }
+
+    public function update(BranchFormRequest $request, $id){
+        //Update Branch
+        $branch = Branch::findOrFail($id);
+        $branch->enterprise_id = Input::get('empresa');
+        $branch->name_branch = Input::get('nombre');
+        $branch->address = Input::get('direccion');
+        $branch->postalcode = Input::get('codigoPostal');
+        $branch->state_id = Input::get('estado');
+        $branch->county_id = Input::get('municipio');
+        $branch->phone = Input::get('telefono');
+        $branch->save();
+        return Redirect::to('sucursales/editado');    
     }
 
     public function delete($id){

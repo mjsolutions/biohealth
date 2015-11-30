@@ -14,11 +14,11 @@ class Enterprise extends Model
     // DEFINE RELATIONSHIPS --------------------------------------------------
     // each enterprise HAS MANY branches
     public function branch() {
-        return $this->hasMany('Branch'); // this matches the Eloquent model
+        return $this->hasMany('App\Models\Branch'); // this matches the Eloquent model
     }
 
     public function department(){
-        return $this->hasManyThrough('Branch', 'Department');
+        return $this->hasManyThrough('App\Models\Branch', 'App\Models\Department');
     }
 
     
