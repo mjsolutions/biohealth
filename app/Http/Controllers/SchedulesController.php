@@ -102,7 +102,8 @@ class SchedulesController extends Controller
             $numDiasSeleccionados = 0;
             $horasSemanales = 0;
             $diasSeleccionados = Input::get('diasVariable');
-            $horasDiarias = strtotime("1970-01-01 ".Input::get('horasDiarias'));
+            $elementosdehoras = explode(":", Input::get('horasDiarias'));
+            $horasDiarias = gmmktime($elementosdehoras[0], $elementosdehoras[1], 0, 1, 1, 1970);
 
 
             foreach ($diasSeleccionados as $diaSeleccionado) {
@@ -121,7 +122,6 @@ class SchedulesController extends Controller
         $schedule->save();
         return Redirect::to('horarios/agregado');
     }
-
 
     public function showEditForm($id){    
         $data["titleSection"] = "Editar Horario";
@@ -216,8 +216,10 @@ class SchedulesController extends Controller
             $numDiasSeleccionados = 0;
             $horasSemanales = 0;
             $diasSeleccionados = Input::get('diasVariable');
-            $horasDiarias = strtotime("1970-01-01 ".Input::get('horasDiarias'));
-
+            //$horasDiarias = strtotime("1970-01-01 ".Input::get('horasDiarias'));
+            $elementosdehoras = explode(":", Input::get('horasDiarias'));
+            $horasDiarias = gmmktime($elementosdehoras[0], $elementosdehoras[1], 0, 1, 1, 1970);
+            
             foreach ($diasSeleccionados as $diaSeleccionado) {
                 $x = "".$diaSeleccionado;
                 $schedule->{"start_".$x} = date("00:00:00");

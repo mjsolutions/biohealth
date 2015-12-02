@@ -17,7 +17,8 @@ Route::get('/', function () {
 
 Route::get('login','LoginController@index');
 Route::get('inicio','HomeController@index');
-
+Route::get('checar','CheckController@index');
+Route::post('checar', ['as' => 'checar' , 'uses' => 'CheckController@check']);
 
 ////////////////////Rutas para el API////////////////////
 Route::get('api/getCountiesByStateId/{stateId}','api@getCountiesByStateId');

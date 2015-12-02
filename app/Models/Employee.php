@@ -42,5 +42,10 @@ class Employee extends Model
         return $this->belongsTo('App\Models\County'); // this matches the Eloquent model
     }
 
+    // each Employee HAS MANY Checks
+    public function check() {
+        return $this->hasMany('App\Models\Check'); // this matches the Eloquent model
+    }
+
 
 }

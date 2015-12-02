@@ -5,7 +5,7 @@
 
 <script src="{{asset('/assets/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('/assets/bootstrap/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('/assets/fancybox/jquery.fancybox.js')}}"></script>		
+<script src="{{asset('/assets/fancybox/jquery.fancybox.js')}}"></script>
 <script src="{{asset('/assets/fancybox/fancybox.message.js')}}"></script>
 
 <link href="{{asset('/assets/css/jquery.timepicker.css')}}" rel="stylesheet">

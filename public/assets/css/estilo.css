@@ -133,7 +133,7 @@ textarea{
 }
 
 #divContentReporteActividades{
-	min-width: 600px;
+	
 }
 
 p{
@@ -208,4 +208,9 @@ section{
 	white-space: nowrap;      
 	overflow: hidden;         
 	text-overflow: ellipsis;  
+}
+
+.modal{
+    max-height: 70vh;
+    margin-top: 15vh;
 }
