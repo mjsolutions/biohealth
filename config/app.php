@@ -139,6 +139,9 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
 
+        'Jenssegers\Date\DateServiceProvider',
+
+
       
         
         /*
@@ -203,6 +206,7 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Date' => Jenssegers\Date\Date::class,
         
  
     ],

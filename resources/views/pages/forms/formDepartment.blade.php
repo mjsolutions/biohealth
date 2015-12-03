@@ -55,7 +55,7 @@
 				<div class="hidden-xs col-sm-8 col-md-8 col-lg-8 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
 					{!! Form::open(array('route' => 'departamentos/agregar', 'class' => 'form-horizontal', 'role' => 'form' , 'id' => 'submitForm')) !!}
 						<div class="shadow-division">
-							<label class="mtDivision ml15 redIdentifier">Identificación:</label>						
+							<label class="mtDivision ml15 redIdentifier">Identificación:</label>
 							<div class="form-group">
 								<label class="control-label pull-text-left col-sm-2 col-md-2 col-lg-2 col-sm-offset-1 col-md-offset-1" for="empresa">Empresa:</label>
 								<div class="col-sm-8 col-md-8 col-lg-8">

@@ -7,64 +7,128 @@ use App\Http\Requests;
 use App\Http\Requests\CheckFormRequest;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Models\Employee;
 use App\Models\Check;
 use Input;
+use Jenssegers\Date\Date;
 use Carbon\Carbon;
+use Session;
+
 
 class CheckController extends Controller
 {
     public function index($operationCode = null){
     	$data["titleSection"] = "Reloj Checador";
+        $currentDateTime = Date::now();
+        $data["displayTime"] = $currentDateTime->format("H:i")." Hrs.";
+        $data["displayDate"] = $currentDateTime->format("l j")." de ".$currentDateTime->format("F")." de ".$currentDateTime->format("Y");
         return view("pages/check", $data);
     }   
 
     public function check(CheckFormRequest $request){
-        $employee = Employee::findOrFail(Input::get('usuario'));
-        $lastCheck = Check::select("id","current_date")->where("employee_id", "=", $employee->id)->orderBy('id', 'desc')->first();
-        $currentDateTime = Carbon::now();        
+        if($this->authEmployee(Input::get('usuario'), Input::get('clave'))){
+            //User exists and the password is valid
+            $employee = Employee::find(Input::get('usuario'));
+            $lastCheck = Check::select("id","current_date","type_schedule", "break", "return", "departure")->where("employee_id", "=", $employee->id)->orderBy('id', 'desc')->first();
+            $currentDateTime = Carbon::now();        
 
-        if($lastCheck != null){
-            //Regular Check
-            if($currentDateTime->format("Y-m-d") == $lastCheck->current_date){
-                //Employee already checked entrance
-                $check = Check::findOrFail($lastCheck->id);
-                $check->departure = $currentDateTime->toTimeString();
-                $check->save();
+            if($lastCheck != null){
+                //Regular Check
+                if($currentDateTime->format("Y-m-d") == $lastCheck->current_date){
+                    //Employee already checked entrance
+                    $check = Check::find($lastCheck->id);
+                    if($lastCheck->type_schedule == 1){
+                        //Fixed Schedule                        
+                        if($lastCheck->break == null){
+                            $check->break = $currentDateTime->toTimeString();
+                            $check->save();
+                            return Redirect::to('checar')->with([
+                                'user' => $employee->name_employee,
+                                'type-check' => 'departure',
+                                'time-check' => "Salida: ".$currentDateTime->format("H:i")." Hrs",
+                            ]);
+
+                        }
+                        else if($lastCheck->return == null){
+                            $check->return = $currentDateTime->toTimeString();
+                            $check->save();
+                            return Redirect::to('checar')->with([
+                                'user' => $employee->name_employee,
+                                'type-check' => 'entrance',
+                                'time-check' => "Entrada: ".$currentDateTime->format("H:i")." Hrs",
+                            ]);
+
+                        }
+                        else if($lastCheck->departure == null){
+                            $check->departure = $currentDateTime->toTimeString();
+                            //$check->activity_report = Input::get('reporteActividades');
+                            $check->save();
+                            return Redirect::to('checar')->with([
+                                'user' => $employee->name_employee,
+                                'type-check' => 'departure',
+                                'time-check' => "Salida: ".$currentDateTime->format("H:i")." Hrs",
+                            ]);
+                        }
+                        else{
+                            return Redirect::to('checar')->with([
+                                'user' => $employee->name_employee,
+                                'type-check' => 'departure',
+                                'time-check' => "El empleado ya checó su salida",
+                            ]);
+
+                        }
+                    }
+                    else if($lastCheck->type_schedule == 2){
+                        //Variable Schedule
+                        if($lastCheck->departure == null){
+                            $check->departure = $currentDateTime->toTimeString();
+                            //$check->activity_report = Input::get('reporteActividades');
+                            $check->save();
+                            return Redirect::to('checar')->with([
+                                'user' => $employee->name_employee,
+                                'type-check' => 'departure',
+                                'time-check' => "Salida: ".$currentDateTime->format("H:i")." Hrs",
+                            ]);
+                        }
+                        else{
+                            return Redirect::to('checar')->with([
+                                'user' => $employee->name_employee,
+                                'type-check' => 'departure',
+                                'time-check' => "El empleado ya checó su salida",
+                            ]);
+                        }
+                        
+                    }                
+                }
+                else{
+                    //Save new regular Check
+                    $this->newCheck();
+                    return Redirect::to('checar')->with([
+                        'user', $employee->name_employee,
+                        'type-check', 'entrance',
+                        'time-check', "Entrada: ".$currentDateTime->format("H:i")." Hrs",
+                    ]);
+                }
             }
             else{
-                //Save new Check
-                $check = new Check;
-                $employee = Employee::findOrFail(Input::get('usuario'));
-                $currentDateTime = Carbon::now();
-                $check->employee_id = $employee->id;
-                $check->type_schedule = $employee->schedule->type;
-                $check->current_date = $currentDateTime->format("Y-m-d");
-                $check->day_number = $this->dayToNumber($currentDateTime->format("l"));
-                $check->entrance = $currentDateTime->toTimeString();
-                $check->save();
-
-            }
+                //Save new first Time Check
+                $this->newCheck();
+                return Redirect::to('checar')->with([
+                    'user' => $employee->name_employee,
+                    'type-check' => 'entrance',
+                    'time-check'=> "Entrada: ".$currentDateTime->format("H:i")." Hrs",
+                ]);
+            }            
         }
         else{
-            //First Time Check
-            //Save new Check
-            $check = new Check;
-            $employee = Employee::findOrFail(Input::get('usuario'));
-            $currentDateTime = Carbon::now();
-            $check->employee_id = $employee->id;
-            $check->type_schedule = $employee->schedule->type;
-            $check->current_date = $currentDateTime->format("Y-m-d");
-            $check->day_number = $this->dayToNumber($currentDateTime->format("l"));
-            $check->entrance = $currentDateTime->toTimeString();
-            $check->save();
-
+             //Auth fails user not exists or password wrong
+            return Redirect::to('checar')->with('error', 'No. de Empleado o Clave incorrectos!');
         }        
-        return Redirect::to('checar');    
     }
 
-    public function dayToNumber($nameDay){
+    protected function dayToNumber($nameDay){
         switch ($nameDay) {
             case 'Monday':
                 return 1;                
@@ -88,6 +152,33 @@ class CheckController extends Controller
                 return 7;
             break;            
         }
+    }
+
+    protected function newCheck(){
+        $check = new Check;
+        $employee = Employee::findOrFail(Input::get('usuario'));
+        $currentDateTime = Carbon::now();
+        $check->employee_id = $employee->id;
+        $check->type_schedule = $employee->schedule->type;
+        $check->current_date = $currentDateTime->format("Y-m-d");
+        $check->day_number = $this->dayToNumber($currentDateTime->format("l"));
+        $check->entrance = $currentDateTime->toTimeString();
+        $check->save();
+    }
+
+    protected function authEmployee($idEmployee, $password){
+        try{
+            $employee = Employee::findOrFail($idEmployee);
+            if($employee->password == $password){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }        
+        catch(ModelNotFoundException $event){
+            return false;
+        }        
     }
  
 }

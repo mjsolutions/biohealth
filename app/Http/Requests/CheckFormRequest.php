@@ -25,7 +25,7 @@ class CheckFormRequest extends Request
     {
         return [            
             'usuario' => 'required',
-            'clave' => 'required',                   
+            'clave' => 'required',            
         ];
     }
 }

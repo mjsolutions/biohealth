@@ -6,7 +6,16 @@
     	$( document ).ready(function() {
     		$("#buttonChecar").click(function(event){
     			event.preventDefault();
-    			$("#submitForm").submit();
+    			if($("#usuario").val() == ""){
+					$("#usuario").focus();
+    			}    			
+    			else if($("#clave").val() == ""){
+    				$("#clave").focus();    				
+    			}
+    			else{
+    				$("#submitForm").submit();
+    			}
+    			
     		});
 
     		$("#buttonGuardar").click(function(event){
@@ -20,9 +29,11 @@
     			}
     		});
 
-
-
-    		
+    		$("#usuario, #clave").focus(function(){
+    			$("#error").hide();
+    			$("#mensajeUsuario").hide();
+    			$("#tiempoEvento").hide();
+    		});    		
     		
     	});
     </script>	
@@ -39,10 +50,10 @@
 		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-3">
 			<div class="mtDivision shadow-division">
 				<div class="col-centered text-centered">
-					<label class="mtDivision bigTimeDisplay">14:30 Hrs</label>						
+					<label class="mtDivision bigTimeDisplay">{{$displayTime}}</label>						
 				</div>
 				<div class="col-centered text-centered">
-					<label class="smallDateDisplay blueIdentifier">Jueves 5 de Noviembre de 2015</label>						
+					<label class="smallDateDisplay blueIdentifier">{{$displayDate}}</label>						
 				</div>
 			</div>
 		</div>
@@ -51,31 +62,38 @@
 	<div class="row">
 		<div class="col-sm-8 col-md-8 col-lg-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-3">
 			{!! Form::open(array('route' => 'checar', 'class' => 'form-horizontal', 'role' => 'form' , 'id' => 'submitForm')) !!}
-				<div class="mtDivision shadow-division">					
-					<div class="form-group">
-						<div class="mtDivision">
-							<label class="control-label pull-text-left col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xs-offset-1 col-sm-offset-1" for="nombreEmpresa">No. de Empleado:</label>
+				<div class="mtDivision shadow-division">
+
+					<div class="mtDivision" style="padding-top:20px;">
+
+						<div class="form-group">
+							<label class="control-label pull-text-left col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xs-offset-1 col-sm-offset-1" for="usuario">No. de Empleado:</label>
 							<div class="col-xs-10 col-sm-5 col-md-6 col-lg-6 col-xs-offset-1">
 								<input name="usuario" type="text" class="form-control text-centered" id="usuario">
 							</div>
 						</div>						
-					</div>
 
-					<div class="form-group">
-						<label class="control-label pull-text-left col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xs-offset-1 col-sm-offset-1" for="empresa">Clave:</label>
-						<div class="col-xs-10 col-sm-5 col-md-6 col-lg-6 col-xs-offset-1">
-							<input name="clave" type="password" class="form-control text-centered" id="clave">
+
+						<div class="form-group">
+							<label class="control-label pull-text-left col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xs-offset-1 col-sm-offset-1" for="clave">Clave:</label>
+							<div class="col-xs-10 col-sm-5 col-md-6 col-lg-6 col-xs-offset-1">
+								<input name="clave" type="password" class="form-control text-centered" id="clave">
+							</div>
 						</div>
+
+
+						<div class="form-group">
+							<button class="mt10 btn btn-primary col-xs-4 col-sm-3 col-md-2 col-lg-2 col-xs-offset-4 col-sm-offset-2 col-md-offset-2" id="buttonChecar">Checar</button>
+							<div style="height:37px; margin-top:7px" class="text-centered col-xs-12 col-sm-5 col-md-6 col-lg-6 col-sm-offset-1 col-md-offset-1">
+								@if(Session::has('error')) <div id="error" class="smallEmployee redIdentifier mt10">{{Session::get('error')}}</div> @endif
+								@if(Session::has('user')) <span id="mensajeUsuario" class="smallEmployee blueIdentifier">{{Session::get('user')}}</span><br> @endif
+								@if(Session::has('type-check')) <span id="tiempoEvento" class="smallEmployee @if(Session::get('type-check') == 'entrance') greenIdentifier @elseif(Session::get('type-check') == 'departure') orangeIdentifier @endif">{{Session::get('time-check')}}</span> @endif
+							</div>
+						</div>
+
 					</div>
 
 					
-					<div class="row">
-						<button class="btn btn-primary col-xs-4 col-sm-3 col-md-2 col-lg-2 col-xs-offset-4 col-sm-offset-2 col-md-offset-2" id="buttonChecar">Checar</button>
-						<div class="text-centered col-xs-12 col-sm-5 col-md-6 col-lg-6 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
-							<span class="smallEmployee blueIdentifier">Edgar Rene Valdovinos Cortes</span><br>
-							<span class="smallEmployee greenIdentifier">Entrada 14:30 hrs</span>
-						</div>
-					</div>
 				</div>						
 			{!! Form::close() !!}
 		</div>
@@ -104,7 +122,7 @@
 
 				<div class="row mtDivision">
 					<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
-						<textarea id="reportTextarea"></textarea>
+						<textarea name="reporteActividades" id="reportTextarea"></textarea>
 					</div>
 				</div>
 
