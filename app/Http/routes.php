@@ -17,13 +17,15 @@ Route::get('/', function () {
 
 Route::get('login','LoginController@index');
 Route::get('inicio','HomeController@index');
-Route::get('checar','CheckController@index');
-Route::post('checar', ['as' => 'checar' , 'uses' => 'CheckController@check']);
+Route::get('checador','CheckController@index');
+Route::post('checador', ['as' => 'checador' , 'uses' => 'CheckController@check']);
+Route::post('reporte', ['as' => 'reporte' , 'uses' => 'CheckController@submitActivityReport']);
 
 ////////////////////Rutas para el API////////////////////
 Route::get('api/getCountiesByStateId/{stateId}','api@getCountiesByStateId');
 Route::get('api/getBranchesByEnterpriseId/{enterpriseId}','api@getBranchesByEnterpriseId');
 Route::get('api/getDepartmentsByBranchId/{branchId}','api@getDepartmentsByBranchId');
+Route::get('api/getServerTime','api@getServerTime');
 
 ////////////////////Rutas para seccion Empresas////////////////////
 Route::get('empresas','EnterprisesController@index');

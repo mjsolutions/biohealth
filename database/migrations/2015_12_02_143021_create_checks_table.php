@@ -28,7 +28,8 @@ class CreateChecksTable extends Migration
             $table->time('return')->nullable();
             $table->time('departure')->nullable();
             $table->text('activity_report')->nullable();
-
+            $table->string('token', 20);
+            
             $table->timestamps();
          });
     }

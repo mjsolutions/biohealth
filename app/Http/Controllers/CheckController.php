@@ -31,8 +31,8 @@ class CheckController extends Controller
         if($this->authEmployee(Input::get('usuario'), Input::get('clave'))){
             //User exists and the password is valid
             $employee = Employee::find(Input::get('usuario'));
-            $lastCheck = Check::select("id","current_date","type_schedule", "break", "return", "departure")->where("employee_id", "=", $employee->id)->orderBy('id', 'desc')->first();
-            $currentDateTime = Carbon::now();        
+            $lastCheck = Check::select("id", "type_schedule", "current_date", "break", "return", "departure", "activity_report")->where("employee_id", "=", $employee->id)->orderBy('id', 'desc')->first();
+            $currentDateTime = Carbon::now();
 
             if($lastCheck != null){
                 //Regular Check
@@ -44,78 +44,75 @@ class CheckController extends Controller
                         if($lastCheck->break == null){
                             $check->break = $currentDateTime->toTimeString();
                             $check->save();
-                            return Redirect::to('checar')->with([
+                            return Redirect::to('checador')->with([
                                 'user' => $employee->name_employee,
                                 'type-check' => 'departure',
                                 'time-check' => "Salida: ".$currentDateTime->format("H:i")." Hrs",
                             ]);
-
                         }
                         else if($lastCheck->return == null){
                             $check->return = $currentDateTime->toTimeString();
                             $check->save();
-                            return Redirect::to('checar')->with([
+                            return Redirect::to('checador')->with([
                                 'user' => $employee->name_employee,
                                 'type-check' => 'entrance',
                                 'time-check' => "Entrada: ".$currentDateTime->format("H:i")." Hrs",
                             ]);
-
                         }
-                        else if($lastCheck->departure == null){
-                            $check->departure = $currentDateTime->toTimeString();
-                            //$check->activity_report = Input::get('reporteActividades');
+                        if($lastCheck->departure == null){
+                            //Variable Schedule: show Activity Report Form 
+                            $randomToken = str_random(20);
+                            $check->token = $randomToken;
                             $check->save();
-                            return Redirect::to('checar')->with([
+                            return Redirect::to('checador')->with([
+                                'token' => $lastCheck->id.":".$randomToken,
                                 'user' => $employee->name_employee,
-                                'type-check' => 'departure',
-                                'time-check' => "Salida: ".$currentDateTime->format("H:i")." Hrs",
+                                'type-check' => 'report',                                
                             ]);
                         }
                         else{
-                            return Redirect::to('checar')->with([
+                            return Redirect::to('checador')->with([
                                 'user' => $employee->name_employee,
-                                'type-check' => 'departure',
+                                'type-check' => 'done',
                                 'time-check' => "El empleado ya checó su salida",
                             ]);
-
                         }
                     }
                     else if($lastCheck->type_schedule == 2){
-                        //Variable Schedule
                         if($lastCheck->departure == null){
-                            $check->departure = $currentDateTime->toTimeString();
-                            //$check->activity_report = Input::get('reporteActividades');
+                            //Variable Schedule: show Activity Report Form 
+                            $randomToken = str_random(20);
+                            $check->token = $randomToken;
                             $check->save();
-                            return Redirect::to('checar')->with([
+                            return Redirect::to('checador')->with([
+                                'token' => $lastCheck->id.":".$randomToken,
                                 'user' => $employee->name_employee,
-                                'type-check' => 'departure',
-                                'time-check' => "Salida: ".$currentDateTime->format("H:i")." Hrs",
+                                'type-check' => 'report',                                
                             ]);
                         }
                         else{
-                            return Redirect::to('checar')->with([
+                            return Redirect::to('checador')->with([
                                 'user' => $employee->name_employee,
-                                'type-check' => 'departure',
+                                'type-check' => 'done',
                                 'time-check' => "El empleado ya checó su salida",
                             ]);
-                        }
-                        
+                        }                                                
                     }                
                 }
                 else{
                     //Save new regular Check
                     $this->newCheck();
-                    return Redirect::to('checar')->with([
-                        'user', $employee->name_employee,
-                        'type-check', 'entrance',
-                        'time-check', "Entrada: ".$currentDateTime->format("H:i")." Hrs",
+                    return Redirect::to('checador')->with([
+                        'user' => $employee->name_employee,
+                        'type-check' => 'entrance',
+                        'time-check'=> "Entrada: ".$currentDateTime->format("H:i")." Hrs",
                     ]);
                 }
             }
             else{
                 //Save new first Time Check
                 $this->newCheck();
-                return Redirect::to('checar')->with([
+                return Redirect::to('checador')->with([
                     'user' => $employee->name_employee,
                     'type-check' => 'entrance',
                     'time-check'=> "Entrada: ".$currentDateTime->format("H:i")." Hrs",
@@ -124,8 +121,29 @@ class CheckController extends Controller
         }
         else{
              //Auth fails user not exists or password wrong
-            return Redirect::to('checar')->with('error', 'No. de Empleado o Clave incorrectos!');
+            return Redirect::to('checador')->with('error', 'No. de Empleado o Clave incorrectos!');
         }        
+    }
+
+    public function submitActivityReport(){
+         $token = Input::get('tokenCheck');
+         $tokenItems = explode(":", $token); //item[0] = idCheck, item[2] = tokenCheck
+         $check = Check::find($tokenItems[0]);
+         $currentDateTime = Carbon::now();
+
+         if($check->token == $tokenItems[1]){
+            $check->departure = $currentDateTime->toTimeString();
+            $check->activity_report = Input::get('reporteActividades');            
+            $check->save();
+            return Redirect::to('checador')->with([
+                    'user' => $check->employee->name_employee,
+                    'type-check' => 'departure',
+                    'time-check'=> "Salida: ".$currentDateTime->format("H:i")." Hrs",
+                ]);
+         }
+         else{
+            return Redirect::to('checador')->with('error', 'La información que intenta modficar está corrupta!');
+         }         
     }
 
     protected function dayToNumber($nameDay){
