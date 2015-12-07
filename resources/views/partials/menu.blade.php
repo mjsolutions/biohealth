@@ -6,6 +6,6 @@
 	  <li @if($section == "departamentos") class="active" @endif>	<a href="{{url("departamentos")}}">Departamentos</a></li>
 	  <li @if($section == "horarios") class="active" @endif>		<a href="{{url("horarios")}}">Horarios</a></li>
 	  <li @if($section == "empleados") class="active" @endif>		<a href="{{url("empleados")}}">Empleados</a></li>
-	  <li @if($section == "reportes") class="active" @endif>		<a href="{{url("reportes")}}">Reportes</a></li>
+	  <li @if($section == "asistencia") class="active" @endif>		<a href="{{url("asistencia")}}">Asistencia</a></li>
 	</ul>
 </aside>

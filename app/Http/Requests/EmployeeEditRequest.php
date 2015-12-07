@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class EmployeeFormRequest extends Request
+class EmployeeEditRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,6 @@ class EmployeeFormRequest extends Request
     {
         return [            
             'nombre' => 'required',
-            'usuario' => 'required|unique:employees,user,'.$this->segment(3),
-            'clave' => 'required',
-            'confirmarClave' => 'required|same:clave',
             'empresa' => 'required',
             'sucursal' => 'required',
             'departamento' => 'required',

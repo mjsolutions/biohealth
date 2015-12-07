@@ -18,6 +18,7 @@ class CreateEmployeesTable extends Migration
             $table->string('name_employee', 100);
             $table->string('user', 100)->unique();
             $table->string('password', 100);
+            $table->string('remember_token', 100)->nullable();
             
             $table->integer('enterprise_id')->unsigned();
             $table->foreign('enterprise_id')->references('id')->on('enterprises')->onDelete('cascade')->onUpdate('cascade');

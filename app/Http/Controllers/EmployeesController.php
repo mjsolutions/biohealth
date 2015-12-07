@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\EmployeeFormRequest;
+use App\Http\Requests\EmployeeEditRequest;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 
@@ -54,7 +55,7 @@ class EmployeesController extends Controller
         $employee = new Employee;
         $employee->name_employee = Input::get('nombre');
         $employee->user = Input::get('usuario');
-        $employee->password = Input::get('clave');
+        $employee->password = bcrypt(Input::get('clave'));
 
         $employee->enterprise_id = Input::get('empresa');
         $employee->branch_id = Input::get('sucursal');
@@ -87,13 +88,10 @@ class EmployeesController extends Controller
         return view("pages/edits/editEmployee", $data);
     }
 
-    public function update(EmployeeFormRequest $request, $id){
+    public function update(EmployeeEditRequest $request, $id){
         //Update Department
         $employee = Employee::findOrFail($id);
         $employee->name_employee = Input::get('nombre');
-        $employee->user = Input::get('usuario');
-        $employee->password = Input::get('clave');
-
         $employee->enterprise_id = Input::get('empresa');
         $employee->branch_id = Input::get('sucursal');
         $employee->department_id = Input::get('departamento');
@@ -119,6 +117,7 @@ class EmployeesController extends Controller
         return Redirect::to('empleados/eliminado');    
     }
 }
+
 
 
 

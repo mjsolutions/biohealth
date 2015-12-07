@@ -13,7 +13,14 @@
     				$("#usuario").focus();    				
     			}
     			else if($("#clave").val() == ""){
-    				$("#clave").focus();    				
+    				$("#clave").focus();
+    			}
+    			else if($("#confirmClave").val() == ""){
+    				$("#confirmClave").focus();
+    			}
+    			else if($("#confirmClave").val() != $("#clave").val()){
+    				alert("El campo clave y el campo Confirmar clave no son iguales");
+    				$("#clave").focus();
     			}
     			else if($("#empresa option:selected").text() == "Seleccione empresa"){
 					$("#empresa").focus();
@@ -127,20 +134,6 @@
 								<label class="control-label pull-text-left col-sm-4 col-md-4 col-lg-4 col-sm-offset-1 col-md-offset-1" for="nombre">Nombre completo:</label>
 								<div class="col-sm-6 col-md-6 col-lg-6">
 									<input value="{{$employee->name_employee}}" name="nombre" type="text" class="form-control" id="nombre" placeholder="Ejemplo: Juan Carlos Silva Perez">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="control-label pull-text-left col-sm-4 col-md-4 col-lg-4 col-sm-offset-1 col-md-offset-1" for="numeroEmpleado">Usuario:</label>
-				     			<div class="col-sm-6 col-md-6 col-lg-6">
-									<input value="{{$employee->user}}" name="usuario" type="text" class="form-control" id="usuario" placeholder="Ejemplo: Usuario123">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="control-label pull-text-left col-sm-4 col-md-4 col-lg-4 col-sm-offset-1 col-md-offset-1" for="clave">Clave:</label>
-				     			<div class="col-sm-6 col-md-6 col-lg-6">
-									<input value="{{$employee->password}}" name="clave" type="password" class="form-control" id="clave" placeholder="Ejemplo: abc123">
 								</div>
 							</div>							
 						</div>

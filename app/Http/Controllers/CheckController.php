@@ -30,7 +30,14 @@ class CheckController extends Controller
     public function check(CheckFormRequest $request){
         if($this->authEmployee(Input::get('usuario'), Input::get('clave'))){
             //User exists and the password is valid
-            $employee = Employee::find(Input::get('usuario'));
+            if(is_numeric(Input::get('usuario'))){
+                //check with user id
+                $employee = Employee::findOrFail(Input::get('usuario'));
+            }
+            else{
+                //check with user account
+                $employee = Employee::select("*")->where("user", Input::get('usuario'))->first();
+            }
             $lastCheck = Check::select("id", "type_schedule", "current_date", "break", "return", "departure", "activity_report")->where("employee_id", "=", $employee->id)->orderBy('id', 'desc')->first();
             $currentDateTime = Carbon::now();
 
@@ -174,7 +181,14 @@ class CheckController extends Controller
 
     protected function newCheck(){
         $check = new Check;
-        $employee = Employee::findOrFail(Input::get('usuario'));
+        if(is_numeric(Input::get('usuario'))){
+            //check with user id
+            $employee = Employee::findOrFail(Input::get('usuario'));
+        }
+        else{
+            //check with user account
+            $employee = Employee::select("*")->where("user", Input::get('usuario'))->first();
+        }
         $currentDateTime = Carbon::now();
         $check->employee_id = $employee->id;
         $check->type_schedule = $employee->schedule->type;
@@ -184,10 +198,17 @@ class CheckController extends Controller
         $check->save();
     }
 
-    protected function authEmployee($idEmployee, $password){
-        try{
-            $employee = Employee::findOrFail($idEmployee);
-            if($employee->password == $password){
+    protected function authEmployee($user, $password){
+        if(is_numeric($user)){
+            //check with user id
+            $employee = Employee::findOrFail($user);
+        }
+        else{
+            //check with user account
+            $employee = Employee::select("password")->where("user", $user)->first();
+        }
+        try{            
+            if(password_verify($password, $employee->password)){
                 return true;
             }
             else{
