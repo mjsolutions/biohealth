@@ -1,0 +1,28 @@
+.frameSet{
+	background-color: #315832;
+	color: white;	
+}
+
+.nav li{
+	background-color: #315832;
+	text-align: center;	
+}
+
+.nav li a{
+	color: white;
+	overflow: hidden;
+}
+
+.nav li a:hover {
+	color: white;
+	background-color: rgba(196, 191, 34, 0.48)!important;
+}
+
+.active{
+	color: white!important;
+	background-color: rgba(196, 191, 34, 0.48)!important;
+}
+
+.active a{
+	color: white!important;
+}

@@ -12,6 +12,7 @@ class HomeController extends Controller
     public function index(){
     	$data["titleSection"] = "Bienvenido";
     	$data["section"] = "home";
+    	$data["showButtonMyInfo"] = 1;
     	return view("pages/home", $data);
     }
 }

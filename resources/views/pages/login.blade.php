@@ -23,7 +23,7 @@
 	    <script type="text/javascript">
 	    	$( document ).ready(function() {
 
-	    		$("#buttonEntrar").click(function(event){
+	    		$("#abuttonEntrar").click(function(event){
 	    			event.preventDefault();
 	    			if($("#usuario").val() == ""){
 						$("#usuario").focus();
@@ -74,11 +74,28 @@
 								</div>
 							</div>
 
+							<!-- <div class="form-group">
+								<label class="control-label pull-text-left col-sm-5 col-md-4 col-lg-4 col-sm-offset-1 col-md-offset-1" for="clave">No cerrar sesíon:</label>
+								<div class="col-sm-5 col-md-6 col-lg-6">
+									<input name="recuerdame" type="checkbox" id="recuerdame">
+								</div>
+							</div> -->
+
 							<div class="row">
 								<button class="btn btn-primary col-sm-2 col-md-2 col-lg-2 col-sm-offset-5 col-md-offset-5" id="buttonEntrar">Entrar</button>
 							</div>
 						</div>						
 					</form>
+
+					@if (count($errors) > 0)
+					<div class="row mtDivision" id="errorsDiv" >
+						<div class="col-sm-12 col-md-12 col-lg-12 text-centered">
+							@foreach($errors->all() as $error)							
+								<span class="smallEmployee redIdentifier">{{$error}}</span> <br>
+							@endforeach
+						</div>
+					</div>							
+					@endif
 
 					@if(Session::has('error'))
 					<div class="row mtDivision" id="errorDiv">

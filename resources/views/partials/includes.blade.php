@@ -3,6 +3,14 @@
 <link href="{{asset('/assets/fancybox/fancybox.message.css')}}" rel="stylesheet">
 <link href="{{asset('/assets/css/estilo.css')}}" rel="stylesheet">
 
+@if(Auth::user()->enterprise->id == 2)
+<link href="{{asset('/assets/css/megasalud.css')}}" rel="stylesheet">
+@endif
+
+@if(Auth::user()->enterprise->id == 3)
+<link href="{{asset('/assets/css/select-food-world.css')}}" rel="stylesheet">
+@endif
+
 <script src="{{asset('/assets/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('/assets/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/assets/fancybox/jquery.fancybox.js')}}"></script>

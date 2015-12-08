@@ -138,8 +138,11 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
-
         'Jenssegers\Date\DateServiceProvider',
+        'Zizaco\Entrust\EntrustServiceProvider',
+
+
+
 
 
       
@@ -151,6 +154,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+
 
        
 
@@ -207,6 +212,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Date' => Jenssegers\Date\Date::class,
+        'Entrust' => 'Zizaco\Entrust\EntrustFacade',
         
  
     ],

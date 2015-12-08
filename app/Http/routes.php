@@ -11,13 +11,16 @@
 |
 */
 
-Route::get('/','LoginController@index');
+////////////////////Rutas para Miscelanea////////////////////
+Route::get('/', ['middleware' => 'auth', 'uses' => 'HomeController@index']);
 Route::get('login','LoginController@index');
 Route::post('login', ['as' => 'login' , 'uses' => 'LoginController@login']);
 Route::get('logout','LoginController@logout');
 Route::get('inicio', ['middleware' => 'auth', 'uses' => 'HomeController@index']);
 Route::get('checador','CheckController@index');
 Route::post('checador', ['as' => 'checador' , 'uses' => 'CheckController@check']);
+Route::post('reporte', ['as' => 'reporte' , 'uses' => 'CheckController@submitActivityReport']);
+
 
 ////////////////////Rutas para el API////////////////////
 Route::get('api/getCountiesByStateId/{stateId}', ['middleware' => 'auth', 'uses' => 'api@getCountiesByStateId']);
@@ -27,7 +30,6 @@ Route::get('api/getServerTime', ['middleware' => 'auth', 'uses' => 'api@getServe
 
 
 ////////////////////Rutas para seccion Empresas////////////////////
-
 Route::get('empresas', ['middleware' => 'auth', 'uses' => 'EnterprisesController@index']);
 Route::get('empresas/agregar', ['middleware' => 'auth', 'uses' => 'EnterprisesController@showAddForm']);
 Route::post('empresas/agregar', ['middleware' => 'auth', 'as' => 'empresas/agregar' , 'uses' => 'EnterprisesController@store']);
@@ -56,6 +58,7 @@ Route::get('departamentos/editar/{id}', ['middleware' => 'auth', 'uses' => 'Depa
 Route::post('departamentos/editar/{id}', ['middleware' => 'auth', 'as' => 'departamentos/editar' , 'uses' => 'DepartmentsController@update']);
 Route::get('departamentos/{operationCode?}', ['middleware' => 'auth', 'uses' => 'DepartmentsController@index']);
 
+
 ////////////////////Rutas para seccion Horarios////////////////////
 Route::get('horarios', ['middleware' => 'auth', 'uses' => 'SchedulesController@index']);
 Route::get('horarios/agregar', ['middleware' => 'auth', 'uses' => 'SchedulesController@showAddForm']);
@@ -65,6 +68,7 @@ Route::get('horarios/editar/{id}', ['middleware' => 'auth', 'uses' => 'Schedules
 Route::post('horarios/editar/{id}', ['middleware' => 'auth', 'as' => 'horarios/editar' , 'uses' => 'SchedulesController@update']);
 Route::get('horarios/{operationCode?}', ['middleware' => 'auth', 'uses' => 'SchedulesController@index']);
 
+
 ////////////////////Rutas para seccion empleados////////////////////
 Route::get('empleados', ['middleware' => 'auth', 'uses' => 'EmployeesController@index']);
 Route::get('empleados/agregar', ['middleware' => 'auth', 'uses' => 'EmployeesController@showAddForm']);
@@ -73,6 +77,7 @@ Route::get('empleados/borrar/{id}', ['middleware' => 'auth', 'uses' => 'Employee
 Route::get('empleados/editar/{id}', ['middleware' => 'auth', 'uses' => 'EmployeesController@showEditForm'])->where('id', '[0-9]+');
 Route::post('empleados/editar/{id}', ['middleware' => 'auth', 'as' => 'empleados/editar' , 'uses' => 'EmployeesController@update']);
 Route::get('empleados/{operationCode?}', ['middleware' => 'auth', 'uses' => 'EmployeesController@index']);
+
 
 ////////////////////Rutas para seccion Reportes////////////////////
 Route::get('asistencia','AssistanceController@index');

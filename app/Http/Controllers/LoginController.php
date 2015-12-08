@@ -17,8 +17,9 @@ class LoginController extends Controller
     }
 
  	public function login(LoginFormRequest $request){
+        
         if (Auth::attempt(['user' => Input::get('usuario'), 'password' => Input::get('clave')])){
-            return redirect()->intended('inicio');
+            return redirect()->intended('inicio');        
         }
         else{
         	return Redirect::to('login')->with([

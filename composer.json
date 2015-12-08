@@ -9,7 +9,8 @@
         "laravel/framework": "5.1.*",
         "laravelcollective/html": "5.1.*",
         "nesbot/carbon": "^1.21",
-        "jenssegers/date": "^3.0"        
+        "jenssegers/date": "^3.0",
+        "zizaco/entrust": "dev-laravel-5"        
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

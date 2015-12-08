@@ -10,6 +10,12 @@
 				<a class="btn btn-warning buttonAdd" href="/{{Request::segment(1)}}/agregar">Agregar</a>
 			</div>
 			@endif
+
+			@if(isset($showButtonMyInfo))
+			<div class="col-sm-3 col-md-3 col-lg-2 col-sm-offset-9 col-md-offset-8 col-lg-offset-9 text-centered mt-40">
+				<a class="btn btn-warning buttonAdd" href="/{{Request::segment(1)}}/modificar">Editar Mi Info</a>
+			</div>
+			@endif
 		</div>									
 		<hr>
 
