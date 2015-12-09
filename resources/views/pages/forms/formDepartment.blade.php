@@ -50,7 +50,7 @@
 		@include("partials/menu")
 		<section class="col-sm-10 col-md-10 col-lg-10 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
 			@include("partials/titleSection")
-			@include("partials/errorsModal")							
+			@include("partials/errorsModal")
 			<div class="row">
 				<div class="hidden-xs col-sm-8 col-md-8 col-lg-8 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
 					{!! Form::open(array('route' => 'departamentos/agregar', 'class' => 'form-horizontal', 'role' => 'form' , 'id' => 'submitForm')) !!}

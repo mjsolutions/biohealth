@@ -1,10 +1,10 @@
 .frameSet{
-	background-color: #013567;
+	background-color: #1A5A88;
 	color: white;	
 }
 
 .nav li{
-	background-color: #013567;
+	background-color: #1A5A88;
 	text-align: center;	
 }
 
@@ -15,15 +15,19 @@
 
 .nav li a:hover {
 	color: white;
-	background-color: #1997B3;
+	background-color: #08C5EB;
 }
 
 .active{
 	color: white!important;
-	background-color: #1997B3;
+	background-color: #08C5EB;
 }
 
 .active a{
 	color: white!important;
-	background-color: #1997B3;
+	background-color: #08C5EB;
 }
+
+
+/*#1A5A88 = azul oscuro*/
+/*#08C5EB = azul claro*/

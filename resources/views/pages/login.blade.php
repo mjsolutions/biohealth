@@ -74,12 +74,12 @@
 								</div>
 							</div>
 
-							<!-- <div class="form-group">
+							<div class="form-group">
 								<label class="control-label pull-text-left col-sm-5 col-md-4 col-lg-4 col-sm-offset-1 col-md-offset-1" for="clave">No cerrar sesíon:</label>
 								<div class="col-sm-5 col-md-6 col-lg-6">
 									<input name="recuerdame" type="checkbox" id="recuerdame">
 								</div>
-							</div> -->
+							</div>
 
 							<div class="row">
 								<button class="btn btn-primary col-sm-2 col-md-2 col-lg-2 col-sm-offset-5 col-md-offset-5" id="buttonEntrar">Entrar</button>

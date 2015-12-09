@@ -1,7 +1,12 @@
 @extends("mainFrame")
 @section("customJS")
 	<script type="text/javascript">
-    	$( document ).ready(function() {    		
+    	$( document ).ready(function() {
+    		@if(isset($messageAlertTitle))
+    		$("#alertDivRow").click(function(){
+    			$(this).fadeOut(1500);
+    		});
+    		@endif
     	});
     </script>	
 @stop
@@ -13,59 +18,82 @@
 			@include("partials/titleSection")
 			<div class="row">
 				<div class="hidden-xs col-sm-10 col-md-10 col-lg-10 col-centered">
-					<div class="row">
-						<label class="col-sm-11 col-md-11 col-lg-11 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 redIdentifier">Datos Personales:</label>
+
+					<div class="row mt-20">
+						<div style="height: 100px;" class="col-sm-8 col-md-7 col-lg-5 col-centered">
+								@if(Auth::user()->enterprise->id == 1)
+								<img class="welcomeLogo" src="{{asset('/logos/300x100/biohealth-300x100.jpg')}}">
+								@endif
+
+								@if(Auth::user()->enterprise->id == 2)
+								<img class="welcomeLogo" src="{{asset('/logos/300x100/megasalud-300x100.jpg')}}">
+								@endif
+
+								@if(Auth::user()->enterprise->id == 3)
+								<img class="welcomeLogo" src="{{asset('/logos/300x100/selectfoodworld-300x100.jpg')}}">
+								@endif
+						</div>
+					</div>
+
+
+					<div class="row mtDivision">
+						<div class="col-sm-10 col-md-10 col-lg-10 col-sm-offset-2 col-md-offset-3 col-lg-offset-3">
+							<label class="redIdentifier">Datos Personales:</label>
+						</div>
 					</div>
 				
 					<div class="row rowHover">
-						<div class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">Nombre: </div>
-						<div class="col-sm-6 col-md-7 col-lg-7">{{Auth::user()->name_employee}}</div>
+						<div class="col-sm-4 col-md-3 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-3">Nombre: </div>
+						<div class="col-sm-6 col-md-4 col-lg-4">{{Auth::user()->name_employee}}</div>
 					</div>
 					<div class="row rowHover">
-						<div class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 hideText">Número de Empleado: </div>
-						<div class="col-sm-6 col-md-7 col-lg-7">{{Auth::user()->id}}</div>
+						<div class="col-sm-4 col-md-3 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-3 hideText">Número de Empleado: </div>
+						<div class="col-sm-6 col-md-4 col-lg-4">{{Auth::user()->id}}</div>
 					</div>
 					<div class="row rowHover">
-						<div class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">Usuario: </div>
-						<div class="col-sm-6 col-md-7 col-lg-7">{{Auth::user()->user}}</div>
+						<div class="col-sm-4 col-md-3 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-3">Usuario: </div>
+						<div class="col-sm-6 col-md-4 col-lg-4">{{Auth::user()->user}}</div>
 					</div>
 					<div class="row rowHover">
-						<div class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">Empresa: </div>
-						<div class="col-sm-6 col-md-7 col-lg-7">{{Auth::user()->enterprise->name_enterprise}}</div>
+						<div class="col-sm-4 col-md-3 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-3">Empresa: </div>
+						<div class="col-sm-6 col-md-4 col-lg-4">{{Auth::user()->enterprise->name_enterprise}}</div>
 					</div>
 					<div class="row rowHover">
-						<div class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">Sucursal: </div>
-						<div class="col-sm-6 col-md-7 col-lg-7">{{Auth::user()->branch->name_branch}}</div>
+						<div class="col-sm-4 col-md-3 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-3">Sucursal: </div>
+						<div class="col-sm-6 col-md-4 col-lg-4">{{Auth::user()->branch->name_branch}}</div>
 					</div>
 					<div class="row rowHover">
-						<div class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">Departamento: </div>
-						<div class="col-sm-6 col-md-7 col-lg-7">{{Auth::user()->department->name_department}}</div>
+						<div class="col-sm-4 col-md-3 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-3">Departamento: </div>
+						<div class="col-sm-6 col-md-4 col-lg-4">{{Auth::user()->department->name_department}}</div>
 					</div>
 
 					<div class="row mtDivision">
-						<label class="col-sm-11 col-md-11 col-lg-11 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 redIdentifier">Asistencia:</label>
+						<div class="col-sm-10 col-md-10 col-lg-10 col-sm-offset-2 col-md-offset-3 col-lg-offset-3">
+							<label class="redIdentifier">Asistencia:</label>
+						</div>
+					</div>
+
+					<div class="row rowHover">
+						<div class="col-sm-4 col-md-3 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-3">Horario: </div>
+						<div class="col-sm-6 col-md-4 col-lg-4">{{Auth::user()->schedule->name_schedule}}</div>
 					</div>
 					<div class="row rowHover">
-						<div class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">Horario: </div>
-						<div class="col-sm-6 col-md-7 col-lg-7">{{Auth::user()->schedule->name_schedule}}</div>
+						<div class="col-sm-4 col-md-3 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-3">Tiempo Semanal: </div>
+						<div class="col-sm-6 col-md-4 col-lg-4">{{Auth::user()->schedule->total_time}}:00</div>
 					</div>
 					<div class="row rowHover">
-						<div class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">Tiempo Semanal: </div>
-						<div class="col-sm-6 col-md-7 col-lg-7">{{Auth::user()->schedule->total_time}}:00</div>
+						<div class="col-sm-4 col-md-3 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-3">Tiempo Cumplido: </div>
+						<div class="col-sm-6 col-md-4 col-lg-4">37:43</div>
 					</div>
 					<div class="row rowHover">
-						<div class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">Tiempo Cumplido: </div>
-						<div class="col-sm-6 col-md-7 col-lg-7">37:43</div>
+						<div class="col-sm-4 col-md-3 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-3">Tiempo Restante: </div>
+						<div class="col-sm-6 col-md-4 col-lg-4">2:17</div>
 					</div>
 					<div class="row rowHover">
-						<div class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">Tiempo Restante: </div>
-						<div class="col-sm-6 col-md-7 col-lg-7">2:17</div>
-					</div>
-					<div class="row rowHover">
-						<div class="col-sm-4 col-md-3 col-lg-3 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 hideText">Reportes de Actividades: </div>
-						<div class="col-sm-6 col-md-7 col-lg-7"><a href="">Consultar</a></div>
-					</div>
-				
+						<div class="col-sm-4 col-md-3 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-3 hideText">Reportes de Actividades: </div>
+						<div class="col-sm-6 col-md-4 col-lg-4"><a href="">Consultar</a></div>
+					</div>					
+									
 				</div>
 				
 			</div>

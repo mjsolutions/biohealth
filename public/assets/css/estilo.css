@@ -68,6 +68,10 @@ hr{
 	margin-top: -40px;
 }
 
+.mt-20{
+	margin-top: -20px;
+}
+
 .mb100{
 	margin-bottom: 100px;
 }
@@ -172,7 +176,7 @@ p{
 }
 
 .nav li a:hover {
-	color: red;
+	color: #376092;
 }
 
 .active{
@@ -180,7 +184,7 @@ p{
 }
 
 .active a{
-	color: red!important;
+	color: #376092!important;
 }
 
 aside{
@@ -217,4 +221,11 @@ section{
 .modal{
     max-height: 70vh;
     margin-top: 15vh;
+}
+
+.welcomeLogo{
+	display: block;
+	height: 100px;
+    margin-left: auto;
+    margin-right: auto;    
 }

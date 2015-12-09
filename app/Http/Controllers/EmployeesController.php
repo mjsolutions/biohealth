@@ -109,7 +109,7 @@ class EmployeesController extends Controller
         $employee->email = Input::get('correo');        
 
         $employee->save();
-        return Redirect::to('empleados/editado');    
+        return Redirect::to('empleados/editado');
     }
 
     public function delete($id){

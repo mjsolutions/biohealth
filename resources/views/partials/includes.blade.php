@@ -3,6 +3,10 @@
 <link href="{{asset('/assets/fancybox/fancybox.message.css')}}" rel="stylesheet">
 <link href="{{asset('/assets/css/estilo.css')}}" rel="stylesheet">
 
+@if(Auth::user()->enterprise->id == 1)
+<link href="{{asset('/assets/css/biohealth.css')}}" rel="stylesheet">
+@endif
+
 @if(Auth::user()->enterprise->id == 2)
 <link href="{{asset('/assets/css/megasalud.css')}}" rel="stylesheet">
 @endif
