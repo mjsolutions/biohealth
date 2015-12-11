@@ -34,7 +34,7 @@
 						<label class="hidden-sm col-md-3 col-lg-3 redIdentifier">Empresa:</label>
 						<label class="col-sm-5 col-md-2 col-lg-4 redIdentifier">Teléfono:</label>
 					</div>
-					@foreach($employees as $employee)
+					@foreach($pagination as $employee)
 					<div class="row rowHover">
 						<div class="col-sm-4 col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1 hideText">{{$employee->name_employee}}</div>							
 						<div class="hidden-sm col-md-3 col-lg-3 hideText">{{$employee->enterprise->name_enterprise}}</div>
@@ -44,9 +44,11 @@
 					</div>
 					@endforeach										
 				</div>
-				@include("partials/pagination")	
 			</div>
-		</section>
+		</section>		
+		<section class="col-sm-10 col-md-10 col-lg-10 col-sm-offset-2 col-md-offset-2 col-lg-offset-2" id="sectionPagination">
+			@include("partials/pagination")
+		</section>		
 	</div>			
 	@include("partials/xsFallback")
 	@include("partials/footer")

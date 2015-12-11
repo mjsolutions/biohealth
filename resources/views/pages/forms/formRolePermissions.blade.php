@@ -56,7 +56,13 @@
 								<div class="col-sm-12 col-md-12 col-lg-12 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
 									<input type="checkbox" class="mb20" name="marcarTodos" id="marcarTodos" value="1">Marcar todos los permisos<br>
 									@foreach($permissions as $permission)									
-									<input type="checkbox" class="checkPermisos" name="permisos[]" value="{{$permission->id}}"> {{$permission->name}}<br>
+										<input 
+											@foreach($permissionsSelected as $permissionSelected)
+												@if($permissionSelected['permission_id'] == $permission['id'])
+													checked
+												@endif
+											@endforeach
+										type="checkbox" class="checkPermisos" name="permisos[]" value="{{$permission->id}}"> {{$permission->name}}<br>
 									@endforeach
 								</div>
 							</div>

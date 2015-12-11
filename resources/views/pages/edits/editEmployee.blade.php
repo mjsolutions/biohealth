@@ -188,6 +188,18 @@
 									</select>
 								</div>
 							</div>
+
+							<div class="form-group">
+								<label class="control-label pull-text-left col-sm-4 col-md-4 col-lg-4 col-sm-offset-1 col-md-offset-1" for="horario">Rol:</label>
+								<div class="col-sm-6 col-md-6 col-lg-6">
+									<select name="rol" id="rol" class="form-control">
+										<option selected="true" disabled="disabled">Seleccione rol</option>   
+									 	@foreach($roles as $role)
+									 	<option value="{{$role->id}}" @if($role->id == $employee->role_id) selected @endif >{{$role->display_name}}</option>
+									 	@endforeach
+									</select>
+								</div>
+							</div>
 						</div>
 
 						<div class="mtDivision shadow-division">

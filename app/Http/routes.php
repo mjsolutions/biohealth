@@ -73,13 +73,13 @@ Route::get('horarios/{operationCode?}', ['middleware' => 'auth', 'uses' => 'Sche
 
 
 ////////////////////Rutas para seccion empleados////////////////////
-Route::get('empleados', ['middleware' => 'auth', 'uses' => 'EmployeesController@index']);
-Route::get('empleados/agregar', ['middleware' => 'auth', 'uses' => 'EmployeesController@showAddForm']);
-Route::post('empleados/agregar', ['middleware' => 'auth', 'as' => 'empleados/agregar' , 'uses' => 'EmployeesController@store']);
-Route::get('empleados/borrar/{id}', ['middleware' => 'auth', 'uses' => 'EmployeesController@delete'])->where('id', '[0-9]+');
-Route::get('empleados/editar/{id}', ['middleware' => 'auth', 'uses' => 'EmployeesController@showEditForm'])->where('id', '[0-9]+');
-Route::post('empleados/editar/{id}', ['middleware' => 'auth', 'as' => 'empleados/editar' , 'uses' => 'EmployeesController@update'])->where('id', '[0-9]+');
-Route::get('empleados/{operationCode?}', ['middleware' => 'auth', 'uses' => 'EmployeesController@index']);
+Route::get('empleados', ['uses' => 'EmployeesController@index']);
+Route::get('empleados/agregar', ['uses' => 'EmployeesController@showAddForm']);
+Route::post('empleados/agregar', ['as' => 'empleados/agregar' , 'uses' => 'EmployeesController@store']);
+Route::get('empleados/borrar/{id}', ['uses' => 'EmployeesController@delete'])->where('id', '[0-9]+');
+Route::get('empleados/editar/{id}', ['uses' => 'EmployeesController@showEditForm'])->where('id', '[0-9]+');
+Route::post('empleados/editar/{id}', ['as' => 'empleados/editar' , 'uses' => 'EmployeesController@update'])->where('id', '[0-9]+');
+Route::get('empleados/{operationCode?}', ['uses' => 'EmployeesController@index']);
 
 
 ////////////////////Rutas para seccion roles////////////////////
@@ -89,11 +89,6 @@ Route::post('roles/agregar', ['middleware' => 'auth', 'as' => 'roles/agregar' , 
 Route::get('roles/borrar/{id}', ['middleware' => 'auth', 'uses' => 'RolesController@delete'])->where('id', '[0-9]+');
 Route::get('roles/editar/{id}', ['middleware' => 'auth', 'uses' => 'RolesController@showEditForm'])->where('id', '[0-9]+');
 Route::post('roles/editar/{id}', ['middleware' => 'auth', 'as' => 'roles/editar' , 'uses' => 'RolesController@update'])->where('id', '[0-9]+');
-
-Route::get('roles/relacionar-permisos/{id}', ['middleware' => 'auth', 'uses' => 'RolesController@showRelatePermissionsForm'])->where('id', '[0-9]+');
-Route::post('roles/relacionar-permisos/{id}', ['middleware' => 'auth', 'as' => 'roles/relacionar-permisos' , 'uses' => 'RolesController@relatePermissions'])->where('id', '[0-9]+');
-
-
 Route::get('roles/{operationCode?}', ['middleware' => 'auth', 'uses' => 'RolesController@index']);
 
 

@@ -11,13 +11,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use Input;
 
+
 class PermissionsController extends Controller
 {
     public function index($operationCode = null){
     	$data["titleSection"] = "Lista de Permisos";
     	$data["section"] = "permisos";
     	$data["showButtonAdd"] = 1;
-    	$data["permissions"] = Permission::all();
+    	$data["pagination"] = Permission::paginate(15);
 
         if(isset($operationCode)){
             if($operationCode == "agregado"){

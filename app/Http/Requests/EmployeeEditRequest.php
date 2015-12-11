@@ -29,6 +29,7 @@ class EmployeeEditRequest extends Request
             'sucursal' => 'required',
             'departamento' => 'required',
             'horario' => 'required',
+            'rol' => 'required',
             'estado' => 'required',
             'municipio' => 'required',
             'domicilio' => 'required',

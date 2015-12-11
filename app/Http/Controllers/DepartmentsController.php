@@ -19,7 +19,7 @@ class DepartmentsController extends Controller
     	$data["titleSection"] = "Lista de Departamentos";
     	$data["section"] = "departamentos";
     	$data["showButtonAdd"] = 1;
-        $data["departments"] = Department::all();
+        $data["pagination"] = Department::paginate(15);
 
         if(isset($operationCode)){
             if($operationCode == "agregado"){

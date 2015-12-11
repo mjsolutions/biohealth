@@ -20,7 +20,7 @@ class BranchesController extends Controller
     	$data["titleSection"] = "Lista de Sucursales";
     	$data["section"] = "sucursales";
     	$data["showButtonAdd"] = 1;
-    	$data["branches"] = Branch::all();
+    	$data["pagination"] = Branch::paginate(15);
 
         if(isset($operationCode)){
             if($operationCode == "agregado"){

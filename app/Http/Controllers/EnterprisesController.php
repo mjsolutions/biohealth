@@ -21,7 +21,7 @@ class EnterprisesController extends Controller
     	$data["titleSection"] = "Lista de Empresas";
    		$data["section"] = "empresas";
     	$data["showButtonAdd"] = 1;
-        $data["enterprises"] = Enterprise::all();
+        $data["pagination"] = Enterprise::paginate(15);
 
         if(isset($operationCode)){
             if($operationCode == "agregado"){

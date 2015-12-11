@@ -34,7 +34,7 @@
 						<label class="col-sm-5 col-md-3 col-lg-3 redIdentifier">Empresa:</label>
 						<label class="hidden-sm col-md-4 col-lg-4 redIdentifier">Teléfono:</label>
 					</div>
-					@foreach($branches as $branch)
+					@foreach($pagination as $branch)
 					<div class="row rowHover">
 						<span class="col-sm-4 col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1 hideText">{{$branch->name_branch}}</span>							
 						<span class="col-sm-5 col-md-3 col-lg-3 hideText">{{$branch->enterprise->name_enterprise}}</span>
@@ -43,10 +43,12 @@
 						<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarSucursal" href="/{{Request::segment(1)}}/borrar/{{$branch->id}}">Borrar</a></span>
 					</div>
 					@endforeach										
-				</div>
-				@include("partials/pagination")
+				</div>				
 			</div>
-		</section>
+		</section>		
+		<section class="col-sm-10 col-md-10 col-lg-10 col-sm-offset-2 col-md-offset-2 col-lg-offset-2" id="sectionPagination">
+			@include("partials/pagination")
+		</section>		
 	</div>			
 	@include("partials/xsFallback")
 	@include("partials/footer")

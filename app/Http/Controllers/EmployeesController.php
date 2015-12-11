@@ -14,6 +14,7 @@ use App\Models\Enterprise;
 use App\Models\Branch;
 use App\Models\Department;
 use App\Models\Schedule;
+use App\Models\Role;
 use App\Models\State;
 use App\Models\County;
 use Input;
@@ -24,7 +25,7 @@ class EmployeesController extends Controller
     	$data["titleSection"] = "Lista de Empleados";
     	$data["section"] = "empleados";
     	$data["showButtonAdd"] = 1;
-        $data["employees"] = Employee::all();
+        $data["pagination"] = Employee::paginate(15);
 
         if(isset($operationCode)){
             if($operationCode == "agregado"){
@@ -46,6 +47,7 @@ class EmployeesController extends Controller
         $data["buttonSaveFormText"] = "Agregar";
         $data["enterprises"] = Enterprise::all();
         $data["schedules"] = Schedule::all();
+        $data["roles"] = Role::all();
         $data["states"] = State::all();
 
     	return view("pages/forms/formEmployee", $data);
@@ -61,6 +63,7 @@ class EmployeesController extends Controller
         $employee->branch_id = Input::get('sucursal');
         $employee->department_id = Input::get('departamento');
         $employee->schedule_id = Input::get('horario');
+        $employee->role_id = Input::get('rol');
         $employee->state_id = Input::get('estado');
         $employee->county_id = Input::get('municipio');
 
@@ -83,6 +86,7 @@ class EmployeesController extends Controller
         $data["branches"] = Branch::where('enterprise_id', '=', $data["employee"]->enterprise_id)->get();
         $data["departments"] = Department::where('branch_id', '=', $data["employee"]->branch_id)->get();
         $data["schedules"] = Schedule::all();
+        $data["roles"] = Role::all();
         $data["states"] = State::all();
         $data["counties"] = County::where('estado_id', '=', $data["employee"]->state_id)->get();
         return view("pages/edits/editEmployee", $data);
@@ -92,22 +96,20 @@ class EmployeesController extends Controller
         //Update Department
         $employee = Employee::findOrFail($id);
         $employee->name_employee = Input::get('nombre');
+
         $employee->enterprise_id = Input::get('empresa');
         $employee->branch_id = Input::get('sucursal');
         $employee->department_id = Input::get('departamento');
         $employee->schedule_id = Input::get('horario');
-
-        $employee->address = Input::get('domicilio');
-        $employee->postalcode = Input::get('codigoPostal');
-
+        $employee->role_id = Input::get('rol');        
         $employee->state_id = Input::get('estado');
         $employee->county_id = Input::get('municipio');
 
+        $employee->address = Input::get('domicilio');
+        $employee->postalcode = Input::get('codigoPostal');
         $employee->phone = Input::get('telefono');
         $employee->cellphone = Input::get('celular');
-
-        $employee->email = Input::get('correo');        
-
+        $employee->email = Input::get('correo');
         $employee->save();
         return Redirect::to('empleados/editado');
     }

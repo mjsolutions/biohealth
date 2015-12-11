@@ -8,6 +8,6 @@
 	  <li @if($section == "empleados") class="active" @endif>		<a class="hideText" href="{{url("empleados")}}">Empleados</a></li>
 	  <li @if($section == "roles") class="active" @endif>			<a class="hideText" href="{{url("roles")}}">Roles</a></li>
 	  <li @if($section == "permisos") class="active" @endif>		<a class="hideText" href="{{url("permisos")}}">Permisos</a></li>
-	  <li @if($section == "asistencia") class="active" @endif>		<a class="hideText" href="{{url("asistencia")}}">Asistencia</a></li>
+	  <!-- <li @if($section == "asistencia") class="active" @endif>		<a class="hideText" href="{{url("asistencia")}}">Asistencia</a></li> -->
 	</ul>
 </aside>

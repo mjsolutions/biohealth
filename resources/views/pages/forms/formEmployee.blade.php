@@ -34,6 +34,9 @@
     			else if($("#horario option:selected").text() == "Seleccione horario"){
 					$("#horario").focus();
     			}
+    			else if($("#rol option:selected").text() == "Seleccione rol"){
+					$("#rol").focus();
+    			}
     			else if($("#domicilio").val() == ""){
     				$("#domicilio").focus();    				
     			}
@@ -199,6 +202,18 @@
 										<option selected="true" disabled="disabled">Seleccione horario</option>   
 									 	@foreach($schedules as $schedule)
 									 	<option value="{{$schedule->id}}">{{$schedule->name_schedule}}</option>
+									 	@endforeach
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label pull-text-left col-sm-4 col-md-4 col-lg-4 col-sm-offset-1 col-md-offset-1" for="horario">Rol:</label>
+								<div class="col-sm-6 col-md-6 col-lg-6">
+									<select name="rol" id="rol" class="form-control">
+										<option selected="true" disabled="disabled">Seleccione rol</option>   
+									 	@foreach($roles as $role)
+									 	<option value="{{$role->id}}">{{$role->display_name}}</option>
 									 	@endforeach
 									</select>
 								</div>

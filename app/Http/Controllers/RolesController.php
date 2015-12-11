@@ -19,7 +19,7 @@ class RolesController extends Controller
     	$data["titleSection"] = "Lista de Roles";
     	$data["section"] = "roles";
     	$data["showButtonAdd"] = 1;
-    	$data["roles"] = Role::all();
+    	$data["pagination"] = Role::paginate(15);
 
         if(isset($operationCode)){
             if($operationCode == "agregado"){
@@ -42,6 +42,7 @@ class RolesController extends Controller
     	$data["titleSection"] = "Agregar un Rol";
    		$data["section"] = "roles";
         $data["buttonSaveFormText"] = "Agregar";
+        $data["permissions"] = Permission::all();
     	return view("pages/forms/formRole", $data);
     }
 
@@ -52,6 +53,11 @@ class RolesController extends Controller
         $role->display_name = Input::get('nombre');
         $role->description = Input::get('descripcion');
         $role->save();
+
+        //Relate permissions to role
+        if(Input::get('permisos')){
+            $role->attachPermissions(Input::get('permisos'));
+        }
         return Redirect::to('roles/agregado');
     }
 
@@ -60,7 +66,8 @@ class RolesController extends Controller
         $data["section"] = "roles";
         $data["buttonSaveFormText"] = "Guardar";
         $data["role"] = Role::findOrFail($id);
-        
+        $data["permissions"] = Permission::all();
+        $data["permissionsSelected"] = RoleRelatedPermissions::where("role_id", "=", $id)->get();
         return view("pages/edits/editRole", $data);
     }
 
@@ -70,7 +77,15 @@ class RolesController extends Controller
         $role->name = Input::get('rol');
         $role->display_name = Input::get('nombre');
         $role->description = Input::get('descripcion');
-        $role->save();        
+        $role->save();
+
+        //Delete Related permissions to role        
+        RoleRelatedPermissions::where("role_id", "=", $id)->delete();        
+
+        //Relate permissions to role
+        if(Input::get('permisos')){
+            $role->attachPermissions(Input::get('permisos'));
+        }
         return Redirect::to('roles/editado');    
     }
 
@@ -80,15 +95,19 @@ class RolesController extends Controller
         $data["buttonSaveFormText"] = "Guardar";
         $data["role"] = Role::findOrFail($id);
         $data["permissions"] = Permission::all();
-        $data["permissions_selected"] = Permission::select("id")->where("estado_id", "=", $stateId)->get();
-        
+        $data["permissionsSelected"] = RoleRelatedPermissions::where("role_id", "=", $id)->get();
         return view("pages/forms/formRolePermissions", $data);
     }
 
     public function relatePermissions($id){
+        //Delete Related permissions to role        
+        RoleRelatedPermissions::where("role_id", "=", $id)->delete();        
+
         //Relate permissions to role
-        $role = Role::findOrFail($id);        
-        $role->attachPermissions(Input::get('permisos'));
+        $role = Role::findOrFail($id);
+        if(Input::get('permisos')){
+            $role->attachPermissions(Input::get('permisos'));
+        }            
         return Redirect::to('roles/agregados');
     }    
 

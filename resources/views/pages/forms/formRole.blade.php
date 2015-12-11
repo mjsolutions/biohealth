@@ -17,7 +17,16 @@
     			else{
     				$("#submitForm").submit();
     			}
-    		});    		
+    		});
+
+    		$('#marcarTodos').change(function() {
+    			if($(this).is(":checked")) {
+    				$(".checkPermisos").prop('checked', "checked");
+    			}
+    			else{
+    				$(".checkPermisos").removeAttr("checked");
+    			}
+    		});
 
 			@if (count($errors) > 0)
 				$.fancybox({
@@ -62,6 +71,18 @@
 									<input value="{{Input::old('descripcion')}}" name="descripcion" type="text" class="form-control" id="descripcion" placeholder="Ejemplo: Administrador de usuarios">
 								</div>
 							</div>																					
+						</div>
+
+						<div class="shadow-division mtDivision">
+							<label class="mtDivision ml15 redIdentifier">Permisos:</label>						
+							<div class="form-group">
+								<div class="col-sm-12 col-md-12 col-lg-12 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
+									<input type="checkbox" class="mb20" name="marcarTodos" id="marcarTodos" value="1">Marcar todos los permisos<br>
+									@foreach($permissions as $permission)									
+										<input type="checkbox" class="checkPermisos" name="permisos[]" value="{{$permission->id}}"> {{$permission->name}}<br>
+									@endforeach
+								</div>
+							</div>
 						</div>
 
 						@include("partials/buttonsFormSection")		

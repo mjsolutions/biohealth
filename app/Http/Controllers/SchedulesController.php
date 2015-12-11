@@ -17,7 +17,7 @@ class SchedulesController extends Controller
     	$data["titleSection"] = "Lista de Horarios";
     	$data["section"] = "horarios";
     	$data["showButtonAdd"] = 1;
-        $data["schedules"] = Schedule::all();
+        $data["pagination"] = Schedule::paginate(15);
 
         if(isset($operationCode)){
             if($operationCode == "agregado"){
