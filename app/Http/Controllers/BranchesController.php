@@ -67,7 +67,7 @@ class BranchesController extends Controller
         $data["branch"] = Branch::findOrFail($id);
         $data["enterprises"] = Enterprise::all();
         $data["states"] = State::all();        
-        $data["counties"] = County::where('estado_id', '=', $data["branch"]->state_id)->get();
+        $data["counties"] = County::where('state_id', '=', $data["branch"]->state_id)->get();
         return view("pages/edits/editBranch", $data);
     }
 

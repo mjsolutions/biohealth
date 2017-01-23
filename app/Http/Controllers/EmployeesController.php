@@ -88,7 +88,7 @@ class EmployeesController extends Controller
         $data["schedules"] = Schedule::all();
         $data["roles"] = Role::all();
         $data["states"] = State::all();
-        $data["counties"] = County::where('estado_id', '=', $data["employee"]->state_id)->get();
+        $data["counties"] = County::where('state_id', '=', $data["employee"]->state_id)->get();
         return view("pages/edits/editEmployee", $data);
     }
 
