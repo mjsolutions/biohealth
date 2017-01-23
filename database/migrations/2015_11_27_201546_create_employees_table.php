@@ -32,6 +32,9 @@ class CreateEmployeesTable extends Migration
             $table->integer('schedule_id')->unsigned();
             $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade')->onUpdate('cascade');
 
+            // $table->integer('role_id');
+            // $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade')->onUpdate('cascade');
+
             $table->string('address', 100)->nullable();
             $table->integer('postalcode')->nullable();
 

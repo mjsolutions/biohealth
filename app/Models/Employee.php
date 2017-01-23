@@ -22,7 +22,7 @@ class Employee extends Model implements AuthenticatableContract,AuthorizableCont
     // MASS ASSIGNMENT -------------------------------------------------------
     // define which attributes are mass assignable (for security)
     // we only want these 3 attributes able to be filled
-    protected $fillable = array('name_employee', 'user', 'password', 'enterprise_id', 'branch_id', 'department_id', 'schedule_id', 'address', 'postalcode', 'state_id', 'county_id', 'phone', 'cellphone', 'email');
+    protected $fillable = array('name_employee', 'user', 'password', 'enterprise_id', 'branch_id', 'department_id', 'schedule_id', 'role_id', 'address', 'postalcode', 'state_id', 'county_id', 'phone', 'cellphone', 'email');
 
     // DEFINE RELATIONSHIPS --------------------------------------------------
     // each Employee BELONGS TO a Enterprise

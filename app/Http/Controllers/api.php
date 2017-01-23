@@ -18,7 +18,7 @@ class api extends Controller
 {
     public function getCountiesByStateId($stateId)
     {
-        return County::select("id", "nombre")->where("estado_id", "=", $stateId)->get();
+        return County::select("id", "nombre")->where("state_id", "=", $stateId)->get();
     }
 
     public function getBranchesByEnterpriseId($enterpriseId)
