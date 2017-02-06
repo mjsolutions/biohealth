@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-01-2017 a las 05:24:34
+-- Tiempo de generación: 06-02-2017 a las 22:41:12
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -39,6 +39,15 @@ CREATE TABLE `branches` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `branches`
+--
+
+INSERT INTO `branches` (`id`, `enterprise_id`, `name_branch`, `address`, `postalcode`, `state_id`, `county_id`, `phone`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Morelia', 'Revolución 552 Centro', 5800, 16, 834, '4432656565', '0000-00-00 00:00:00', '2017-01-13 22:38:58'),
+(2, 2, 'Matriz', 'Revolución 552 Col. Centro', 58000, 16, 834, '3123487', '2017-01-23 19:32:30', '2017-01-23 19:32:30'),
+(3, 3, 'Matriz', 'Revolución 552 Col. Centro', 58000, 16, 834, '3124578', '2017-01-23 19:34:39', '2017-01-23 19:34:39');
+
 -- --------------------------------------------------------
 
 --
@@ -60,6 +69,17 @@ CREATE TABLE `checks` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `checks`
+--
+
+INSERT INTO `checks` (`id`, `employee_id`, `type_schedule`, `current_date`, `day_number`, `entrance`, `break`, `return`, `departure`, `activity_report`, `token`, `created_at`, `updated_at`) VALUES
+(1, 4, 1, '2017-01-29', 7, '22:18:48', '22:19:51', '22:20:13', '22:20:45', 'Pruebas de checador', 'Cj4t2pvAwMrbVFiLK6Hi', '2017-01-30 04:18:48', '2017-01-30 04:20:45'),
+(2, 4, 1, '2017-01-30', 1, '17:28:10', '17:29:28', '17:36:25', '17:36:51', 'Implementacion de checador', 'FcpAVH2VB6lat6ajgqDE', '2017-01-30 23:28:10', '2017-01-30 23:36:51'),
+(3, 5, 1, '2017-02-02', 4, '17:51:49', '18:31:11', '18:31:32', '18:33:02', 'Elaboracion de hongos', 'JvLy1eIvRwzkQa6YAPhE', '2017-02-02 23:51:49', '2017-02-03 00:33:02'),
+(4, 4, 1, '2017-02-02', 4, '17:54:21', NULL, NULL, NULL, NULL, '', '2017-02-02 23:54:21', '2017-02-02 23:54:21'),
+(5, 3, 1, '2017-02-02', 4, '19:12:49', '19:12:59', NULL, NULL, NULL, '', '2017-02-03 01:12:49', '2017-02-03 01:12:59');
 
 -- --------------------------------------------------------
 
@@ -2594,6 +2614,15 @@ CREATE TABLE `departments` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `departments`
+--
+
+INSERT INTO `departments` (`id`, `enterprise_id`, `branch_id`, `name_department`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Sistemas', '0000-00-00 00:00:00', '2017-01-13 22:32:38'),
+(2, 2, 2, 'Sistemas', '2017-01-23 19:36:01', '2017-01-23 19:36:01'),
+(3, 2, 2, 'Hongos', '2017-02-02 23:47:37', '2017-02-02 23:47:37');
+
 -- --------------------------------------------------------
 
 --
@@ -2610,6 +2639,7 @@ CREATE TABLE `employees` (
   `branch_id` int(10) UNSIGNED NOT NULL,
   `department_id` int(10) UNSIGNED NOT NULL,
   `schedule_id` int(10) UNSIGNED NOT NULL,
+  `role_id` int(10) UNSIGNED NOT NULL,
   `address` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `postalcode` int(11) DEFAULT NULL,
   `state_id` int(10) UNSIGNED NOT NULL,
@@ -2620,6 +2650,15 @@ CREATE TABLE `employees` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `employees`
+--
+
+INSERT INTO `employees` (`id`, `name_employee`, `user`, `password`, `remember_token`, `enterprise_id`, `branch_id`, `department_id`, `schedule_id`, `role_id`, `address`, `postalcode`, `state_id`, `county_id`, `phone`, `cellphone`, `email`, `created_at`, `updated_at`) VALUES
+(3, 'Usario de prueba', 'user', '$2y$10$K9E5WGkm8AFgcrW43lm/OOP5S/l7UQTUgqhB9WKvbZVfYx01TtLBa', '7Vf8Vd3v7gftdKbjL5ts2nNMaJt84FucYVJd3ztnxakE7XvP9cFARhmVMvTk', 1, 1, 1, 1, 1, 'Centro S/N', 58000, 16, 834, '4434525252', NULL, 'user@gmail.com', '2017-01-14 02:51:55', '2017-01-23 21:28:35'),
+(4, 'Martin Alanis', 'Martin', '$2y$10$033OEJYZCJ4QjT4lsnRvEOH6/Uq8aVg8d76n5fiGfctOl3YFy4.iq', 'SPkXgxQr00eQq2PNcslo8g1sU2hvTAYjycCGrMDN2X2McxEabbOMdSpkyrVZ', 2, 2, 2, 1, 1, 'Codornices 332 Frac, La hacienda', 58330, 16, 834, '4432504067', '4432504067', 'martinalanis.dev@gmail.com', '2017-01-23 21:28:24', '2017-02-03 00:09:25'),
+(5, 'Israel', 'Isrrael', '$2y$10$uzcJ2AM5mnM9UE94uG7hReY1lhXhV.6hDC5dg7BiSQ3AhmYyFD.E2', 'd1WnKcNbpJ9UGJInVuq1T88wbF4wrEHsiJWbpz2IGnaWbfDDD16Z58DsOoDJ', 2, 2, 3, 2, 1, 'Conocido', 58000, 16, 834, '4431252525', '4431252525', 'isrrael@mail.com', '2017-02-02 23:50:53', '2017-02-02 23:52:41');
 
 -- --------------------------------------------------------
 
@@ -2634,6 +2673,15 @@ CREATE TABLE `enterprises` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `enterprises`
+--
+
+INSERT INTO `enterprises` (`id`, `name_enterprise`, `rfc`, `created_at`, `updated_at`) VALUES
+(1, 'Biohealth', 'BHT5453', '0000-00-00 00:00:00', '2017-01-23 19:23:33'),
+(2, 'Megasalud', 'OADM4587', '2017-01-23 19:32:30', '2017-01-23 19:32:30'),
+(3, 'Seleectfood World', 'SEL5487LO', '2017-01-23 19:34:39', '2017-01-23 19:34:39');
 
 -- --------------------------------------------------------
 
@@ -2716,6 +2764,13 @@ CREATE TABLE `roles` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'Residente', 'Residente', 'Residentes generales', '2017-01-23 19:18:31', '2017-01-23 19:18:31');
+
 -- --------------------------------------------------------
 
 --
@@ -2784,6 +2839,14 @@ CREATE TABLE `schedules` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `schedules`
+--
+
+INSERT INTO `schedules` (`id`, `name_schedule`, `type`, `total_time`, `break`, `start_1`, `entrance_1`, `break_1`, `return_1`, `departure_1`, `end_1`, `start_2`, `entrance_2`, `break_2`, `return_2`, `departure_2`, `end_2`, `start_3`, `entrance_3`, `break_3`, `return_3`, `departure_3`, `end_3`, `start_4`, `entrance_4`, `break_4`, `return_4`, `departure_4`, `end_4`, `start_5`, `entrance_5`, `break_5`, `return_5`, `departure_5`, `end_5`, `start_6`, `entrance_6`, `break_6`, `return_6`, `departure_6`, `end_6`, `start_7`, `entrance_7`, `break_7`, `return_7`, `departure_7`, `end_7`, `created_at`, `updated_at`) VALUES
+(1, 'Horario', 1, 10.00, 1, '10:00:00', '10:00:00', '14:00:00', '15:00:00', '18:00:00', '18:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, '8hr-16hrs Corrido', 1, 0.00, 1, '00:00:00', '08:00:00', '00:00:00', '00:00:00', '04:00:00', '23:59:59', '00:00:00', '08:00:00', '00:00:00', '00:00:00', '04:00:00', '23:59:59', '00:00:00', '08:00:00', '00:00:00', '00:00:00', '04:00:00', '23:59:59', '00:00:00', '08:00:00', '00:00:00', '00:00:00', '04:00:00', '23:59:59', '00:00:00', '08:00:00', '00:00:00', '00:00:00', '04:00:00', '23:59:59', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-02-02 23:46:16', '2017-02-02 23:46:16');
 
 -- --------------------------------------------------------
 
@@ -2906,7 +2969,8 @@ ALTER TABLE `employees`
   ADD KEY `employees_department_id_foreign` (`department_id`),
   ADD KEY `employees_schedule_id_foreign` (`schedule_id`),
   ADD KEY `employees_state_id_foreign` (`state_id`),
-  ADD KEY `employees_county_id_foreign` (`county_id`);
+  ADD KEY `employees_county_id_foreign` (`county_id`),
+  ADD KEY `role_id` (`role_id`);
 
 --
 -- Indices de la tabla `enterprises`
@@ -2979,12 +3043,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `checks`
 --
 ALTER TABLE `checks`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `counties`
 --
@@ -2994,17 +3058,17 @@ ALTER TABLE `counties`
 -- AUTO_INCREMENT de la tabla `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `enterprises`
 --
 ALTER TABLE `enterprises`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `permissions`
 --
@@ -3014,12 +3078,12 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `schedules`
 --
 ALTER TABLE `schedules`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `states`
 --
@@ -3069,6 +3133,7 @@ ALTER TABLE `employees`
   ADD CONSTRAINT `employees_county_id_foreign` FOREIGN KEY (`county_id`) REFERENCES `counties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `employees_department_id_foreign` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `employees_enterprise_id_foreign` FOREIGN KEY (`enterprise_id`) REFERENCES `enterprises` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `employees_schedule_id_foreign` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `employees_state_id_foreign` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 

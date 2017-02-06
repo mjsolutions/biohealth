@@ -97,7 +97,7 @@
 
 		<div class="row">
 			<div class="col-sm-8 col-md-8 col-lg-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-3">
-				{!! Form::open(array('route' => 'checador', 'class' => 'form-horizontal', 'role' => 'form' , 'id' => 'submitForm')) !!}
+				{!! Form::open(array('route' => 'checador', 'method'=>'POST', 'class' => 'form-horizontal', 'role' => 'form' , 'id' => 'submitForm')) !!}
 					<div class="mtDivision shadow-division">
 
 						<div class="mtDivision" style="padding-top:20px;">
