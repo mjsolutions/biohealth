@@ -7,13 +7,13 @@
 
 			@if(isset($showButtonAdd))
 			<div class="col-sm-3 col-md-2 col-lg-2 col-sm-offset-9 col-md-offset-9 col-lg-offset-9 text-centered mt-40">
-				<a class="btn btn-warning buttonAdd" href="/{{Request::segment(1)}}/agregar">Agregar</a>
+				<a class="btn btn-warning buttonAdd" href="{{url('/'.Request::segment(1).'/agregar')}}">Agregar</a>
 			</div>
 			@endif
 
 			@if(isset($showButtonChangePassword))
 			<div class="col-sm-3 col-md-2 col-lg-2 col-sm-offset-9 col-md-offset-9 col-lg-offset-9 text-centered mt-40">
-				<a class="btn btn-warning buttonAdd" href="/{{Request::segment(1)}}/cambiar-clave/{{Auth::user()->id}}">Clave</a>
+				<a class="btn btn-warning buttonAdd" href="{{url('/'.Request::segment(1).'/cambiar-clave/'.Auth::user()->id)}}">Clave</a>
 			</div>
 			@endif
 		</div>									

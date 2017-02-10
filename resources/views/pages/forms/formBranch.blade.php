@@ -35,7 +35,7 @@
     		$('#estado').change(function(){
 				var stateId = $(this).val();
 				$.ajax({
-					url: "/api/getCountiesByStateId/"+stateId,
+					url: "{{url('/api/getCountiesByStateId')}}/"+stateId,
 					success: function(response){
 						var counties = response;
 						var countiesSelect ='<option selected="true" disabled="disabled">Seleccione municipio</option>';

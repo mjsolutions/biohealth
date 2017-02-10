@@ -39,8 +39,8 @@
 						<div class="col-sm-4 col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1 hideText">{{$employee->name_employee}}</div>							
 						<div class="hidden-sm col-md-3 col-lg-3 hideText">{{$employee->enterprise->name_enterprise}}</div>
 						<div class="col-sm-5 col-md-2 col-lg-2 hideText">{{$employee->phone}}</div>
-						<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a href="/{{Request::segment(1)}}/editar/{{$employee->id}}">Editar</a></div>
-						<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarEmpleado" href="/{{Request::segment(1)}}/borrar/{{$employee->id}}">Borrar</a></div>
+						<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a href="{{url('/'.Request::segment(1).'/editar/'.$employee->id)}}">Editar</a></div>
+						<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarEmpleado" href="{{url('/'.Request::segment(1).'/borrar/'.$employee->id)}}">Borrar</a></div>
 					</div>
 					@endforeach										
 				</div>
