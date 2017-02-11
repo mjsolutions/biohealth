@@ -37,8 +37,8 @@
 					<div class="row rowHover">
 						<div class="col-sm-4 col-md-3 col-lg-3 col-md-offset-1 hideText">{{$enterprise->name_enterprise}}</div>
 						<div class="col-sm-5 col-md-3 col-lg-3 hideText">{{$enterprise->rfc}}</div>
-						<div class="col-sm-1 col-md-1 col-lg-1 col-md-offset-2 pull-text-right"><a href="/{{Request::segment(1)}}/editar/{{$enterprise->id}}">Editar</a></div>
-						<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarEmpresa" href="/{{Request::segment(1)}}/borrar/{{$enterprise->id}}">Borrar</a></div>
+						<div class="col-sm-1 col-md-1 col-lg-1 col-md-offset-2 pull-text-right"><a href="{{url('/'.Request::segment(1).'/editar/'.$enterprise->id)}}">Editar</a></div>
+						<div class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarEmpresa" href="{{url('/'.Request::segment(1).'/borrar/'.$enterprise->id)}}">Borrar</a></div>
 					</div>
 					@endforeach
 				</div>				

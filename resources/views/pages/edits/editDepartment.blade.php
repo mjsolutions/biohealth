@@ -21,7 +21,7 @@
     		$('#empresa').change(function(){
 				var enterpriseId = $(this).val();
 				$.ajax({
-					url: "/api/getBranchesByEnterpriseId/"+enterpriseId,
+					url: "{{url('/api/getBranchesByEnterpriseId/')}}/"+enterpriseId,
 					success: function(response){
 						var branches = response;
 						var branchesSelect ='<option selected="true" disabled="disabled">Seleccione sucursal</option>';

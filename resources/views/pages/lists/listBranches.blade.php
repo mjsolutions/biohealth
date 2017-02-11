@@ -39,8 +39,8 @@
 						<span class="col-sm-4 col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1 hideText">{{$branch->name_branch}}</span>							
 						<span class="col-sm-5 col-md-3 col-lg-3 hideText">{{$branch->enterprise->name_enterprise}}</span>
 						<span class="hidden-sm col-md-2 col-lg-2 hideText">{{$branch->phone}}</span>
-						<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a href="/{{Request::segment(1)}}/editar/{{$branch->id}}">Editar</a></span>
-						<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarSucursal" href="/{{Request::segment(1)}}/borrar/{{$branch->id}}">Borrar</a></span>
+						<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a href="{{url('/'.Request::segment(1).'/editar/'.$branch->id)}}">Editar</a></span>
+						<span class="col-sm-1 col-md-1 col-lg-1 pull-text-right"><a class="borrarSucursal" href="{{url('/'.Request::segment(1).'/borrar/'.$branch->id)}}">Borrar</a></span>
 					</div>
 					@endforeach										
 				</div>				

@@ -63,7 +63,7 @@
 			$('#estado').change(function(){
 				var stateId = $(this).val();
 				$.ajax({
-					url: "/api/getCountiesByStateId/"+stateId,
+					url: "{{url('/api/getCountiesByStateId/')}}"+stateId,
 					success: function(response){
 						var counties = response;
 						var countiesSelect ='<option selected="true" disabled="disabled">Seleccione municipio</option>';
@@ -78,7 +78,7 @@
 			$('#empresa').change(function(){
 				var enterpriseId = $(this).val();
 				$.ajax({
-					url: "/api/getBranchesByEnterpriseId/"+enterpriseId,
+					url: "{{url('/api/getBranchesByEnterpriseId/')}}"+enterpriseId,
 					success: function(response){
 						var branches = response;
 						var branchesSelect ='<option selected="true" disabled="disabled">Seleccione sucursal</option>';
@@ -93,7 +93,7 @@
 			$('#sucursal').change(function(){
 				var branchId = $(this).val();
 				$.ajax({
-					url: "/api/getDepartmentsByBranchId/"+branchId,
+					url: "{{url('/api/getDepartmentsByBranchId/')}}"+branchId,
 					success: function(response){
 						var departments = response;
 						var departmentsSelect ='<option selected="true" disabled="disabled">Seleccione departamento</option>';
